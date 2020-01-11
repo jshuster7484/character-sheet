@@ -1,25 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Character from "./components/Character";
+import Defense from "./components/Defense";
+import Offense from "./components/Offense";
+import Portrait from "./components/Portrait";
+import Skills from "./components/skills/Skills";
+import Container from "@material-ui/core/Container";
+
+import ashData from "./ash.json";
+
+const DataContext = React.createContext();
+
+export function useData() {
+  const context = React.useContext(DataContext);
+  if (!context) {
+    throw new Error(`useData must be used within a DataProvider`);
+  }
+  return context;
+}
+function DataProvider(props) {
+  const [data, setData] = React.useState(ashData);
+  const value = React.useMemo(() => [data, setData], [data]);
+  return <DataContext.Provider value={value} {...props} />;
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className="App">
+      <main>
+        <DataProvider>
+          <Portrait />
+          <Character />
+          <Defense />
+          <Offense />
+          <Skills style={{ gridRow: 1 }} />
+        </DataProvider>
+      </main>
+    </Container>
   );
 }
 

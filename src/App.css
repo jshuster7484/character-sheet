@@ -1,38 +1,53 @@
-.App {
-  text-align: center;
+main {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 200px, repeat(3, 33%);
+  grid-template-rows: repeat(6, 200px);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.portraitWrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.portraitImage {
+  position: relative;
+  width: 200px;
+  height: 200px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.portraitBlood {
+  position: absolute;
+  bottom: 0;
+  background-color: #8a0303;
+  opacity: 0.5;
+  width: 200px;
 }
 
-.App-link {
-  color: #61dafb;
+.character {
+  grid-column: 2 / 4;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.defense {
+  grid-column: 2 / 4;
+  grid-row: 2;
+}
+
+.offense {
+  grid-column: 2 /4;
+  grid-row: 3;
+}
+
+.skills {
+  grid-column: 4;
+  grid-row: 1;
+}
+
+.stat {
+  border: 1px solid lightgray;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 6rem;
 }

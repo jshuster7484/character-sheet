@@ -1,0 +1,60 @@
+{
+  "name": "Ash",
+  "class": "rogue",
+  "race": "human",
+  "max_hp": 48,
+  "hp": 23,
+  "abilities": [
+    { "name": "Strength", "score": 14 },
+    { "name": "Dexterity", "score": 18 },
+    { "name": "Constitution", "score": 10 },
+    { "name": "Intelligence", "score": 9 },
+    { "name": "Wisdom", "score": 20 },
+    { "name": "Charsima", "score": 13 }
+  ],
+  "fortitude": 4,
+  "reflex": 4,
+  "will": 4,
+  "feats": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "modifiers": [],
+      "value": 12
+    },
+    {
+      "name": "Appraise",
+      "modifiers": [],
+      "value": 6
+    },
+    {
+      "name": "Bluff",
+      "modifiers": [
+        {
+          "description": "Feinting",
+          "value": 3
+        },
+        {
+          "description": "Lying to clergy",
+          "value": -10
+        }
+      ],
+      "value": 12
+    },
+    {
+      "name": "Diplomacy",
+      "modifiers": [],
+      "value": 7
+    },
+    {
+      "name": "Sleight of Hand",
+      "modifiers": [
+        {
+          "description": "Concealing a dagger",
+          "value": 6
+        }
+      ],
+      "value": 15
+    }
+  ]
+}
