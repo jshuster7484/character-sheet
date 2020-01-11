@@ -1,11 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import portrait from "../corvo.jpg";
 import Stat from "./Stat";
 import { useData } from "../App";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 export default function Portrait() {
-  const [data] = useData();
+  const [health, setHealth] = useState(0);
+  const [data, setData] = useData();
   const bloodPercentage = (1 - data.hp / data.max_hp) * 100 + "%";
+
+  const handleChange = e => {
+    setHealth(parseInt(e.target.value));
+  };
+
+  const handleClick = () => {
+    let newHp;
+    if (data.hp + health > data.max_hp) {
+      newHp = data.max_hp;
+    } else if (data.hp + health < 0) {
+      newHp = 0;
+    } else {
+      newHp = data.hp + health;
+    }
+    setData({ ...data, hp: newHp });
+    setHealth(0);
+  };
+
+  const buttonText = () => {
+    if (health > 0) {
+      return "Heal";
+    }
+    if (health < 0) {
+      return "Damage";
+    }
+    return "Apply";
+  };
+
   return (
     <section className="portrait">
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -22,6 +53,15 @@ export default function Portrait() {
         style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}
       >
         <Stat label="Hit Points" value={`${data.hp}/${data.max_hp}`} />
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <TextField
+          InputProps={{ inputProps: { min: -500, max: 500, type: "number" } }}
+          style={{ width: "5rem" }}
+          onChange={handleChange}
+          value={health}
+        />
+        <Button onClick={handleClick}>{buttonText()}</Button>
       </div>
     </section>
   );

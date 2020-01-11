@@ -3,7 +3,7 @@
   "class": "rogue",
   "race": "human",
   "max_hp": 48,
-  "hp": 23,
+  "hp": 48,
   "abilities": [
     { "name": "Strength", "score": 14 },
     { "name": "Dexterity", "score": 18 },
