@@ -48,7 +48,7 @@ const skills = [
 
 function Skills() {
   return (
-    <section className="skills" style={{ maxWidth: 360 }}>
+    <section className="skills">
       <header style={{ display: "flex", justifyContent: "space-between" }}>
         <h2>Skills</h2>
         <Button>Edit</Button>

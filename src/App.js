@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Character from "./components/Character";
 import Defense from "./components/Defense";
+import Gear from "./components/Gear";
 import Offense from "./components/Offense";
 import Portrait from "./components/Portrait";
 import Skills from "./components/skills/Skills";
@@ -18,6 +19,7 @@ export function useData() {
   }
   return context;
 }
+
 function DataProvider(props) {
   const [data, setData] = React.useState(ashData);
   const value = React.useMemo(() => [data, setData], [data]);
@@ -33,7 +35,8 @@ function App() {
           <Character />
           <Defense />
           <Offense />
-          <Skills style={{ gridRow: 1 }} />
+          <Gear />
+          {/* <Skills style={{ gridRow: 1 }} /> */}
         </DataProvider>
       </main>
     </Container>

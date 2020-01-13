@@ -5,17 +5,58 @@
   "max_hp": 48,
   "hp": 48,
   "abilities": [
-    { "name": "Strength", "score": 14 },
-    { "name": "Dexterity", "score": 18 },
-    { "name": "Constitution", "score": 10 },
-    { "name": "Intelligence", "score": 9 },
-    { "name": "Wisdom", "score": 20 },
-    { "name": "Charsima", "score": 13 }
+    { "name": "Strength", "value": 14, "modifiers": [] },
+    {
+      "name": "Dexterity",
+      "value": 20,
+      "modifiers": [
+        { "name": "Base", "value": 18 },
+        { "name": "Bracers of Dexterity", "value": 2 }
+      ]
+    },
+    { "name": "Constitution", "value": 10, "modifiers": [] },
+    { "name": "Intelligence", "value": 9, "modifiers": [] },
+    { "name": "Wisdom", "value": 20, "modifiers": [] },
+    { "name": "Charisma", "value": 13, "modifiers": [] }
   ],
+  "armorClass": {
+    "name": "Armor Class",
+    "value": 16,
+    "modifiers": [
+      {
+        "name": "Base",
+        "value": 10
+      },
+      {
+        "name": "Dexterity",
+        "value": 4
+      },
+      {
+        "name": "Leather Armor",
+        "value": 2
+      }
+    ]
+  },
   "fortitude": 4,
   "reflex": 4,
   "will": 4,
   "feats": [],
+  "gear": [
+    {
+      "name": "Leather Armor",
+      "quantity": 1,
+      "modifiers": [],
+      "equipped": true,
+      "type": "armor"
+    },
+    {
+      "name": "Torch",
+      "quantity": 10,
+      "modifiers": [],
+      "equipped": false,
+      "type": "item"
+    }
+  ],
   "skills": [
     {
       "name": "Acrobatics",

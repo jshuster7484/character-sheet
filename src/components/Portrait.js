@@ -39,22 +39,18 @@ export default function Portrait() {
 
   return (
     <section className="portrait">
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <div className="portraitWrapper">
-          <img
-            alt="Character Portrait"
-            className="portraitImage"
-            src={portrait}
-          />
-          <div className="portraitBlood" style={{ height: bloodPercentage }} />
-        </div>
+      <div className="portraitWrapper">
+        <img
+          alt="Character Portrait"
+          className="portraitImage"
+          src={portrait}
+        />
+        <div className="portraitBlood" style={{ height: bloodPercentage }} />
       </div>
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}
-      >
+      <div>
         <Stat label="Hit Points" value={`${data.hp}/${data.max_hp}`} />
       </div>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div>
         <TextField
           InputProps={{ inputProps: { min: -500, max: 500, type: "number" } }}
           style={{ width: "5rem" }}

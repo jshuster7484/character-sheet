@@ -10,4 +10,8 @@ function getAbilityModifier(abilityScore) {
   return getStringNumber(Math.floor((abilityScore - 10) / 2));
 }
 
-export { getAbilityModifier, getStringNumber };
+const hasModifier = modifiers => {
+  return modifiers !== undefined && modifiers.length > 0;
+};
+
+export { getAbilityModifier, getStringNumber, hasModifier };
