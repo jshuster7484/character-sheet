@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import portrait from "../corvo.jpg";
 import Stat from "./Stat";
-import { useData } from "../App";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
-export default function Portrait() {
+export default function Portrait(props) {
   const [health, setHealth] = useState(0);
-  const [data, setData] = useData();
-  const bloodPercentage = (1 - data.hp / data.max_hp) * 100 + "%";
+
+  const { hp, max_hp } = props;
+
+  const bloodPercentage = (1 - hp / max_hp) * 100 + "%";
 
   const handleChange = e => {
     setHealth(parseInt(e.target.value));
@@ -16,14 +17,13 @@ export default function Portrait() {
 
   const handleClick = () => {
     let newHp;
-    if (data.hp + health > data.max_hp) {
-      newHp = data.max_hp;
-    } else if (data.hp + health < 0) {
+    if (hp + health > max_hp) {
+      newHp = max_hp;
+    } else if (hp + health < 0) {
       newHp = 0;
     } else {
-      newHp = data.hp + health;
+      newHp = hp + health;
     }
-    setData({ ...data, hp: newHp });
     setHealth(0);
   };
 
@@ -48,7 +48,7 @@ export default function Portrait() {
         <div className="portraitBlood" style={{ height: bloodPercentage }} />
       </div>
       <div>
-        <Stat label="Hit Points" value={`${data.hp}/${data.max_hp}`} />
+        <Stat label="Hit Points" value={`${hp}/${max_hp}`} />
       </div>
       <div>
         <TextField

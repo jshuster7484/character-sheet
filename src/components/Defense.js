@@ -1,19 +1,16 @@
 import React from "react";
-import { useData } from "../App";
 import Stat from "./Stat";
 
 export default function Defense() {
-  const [data] = useData();
-
   return (
     <section className="defense">
       <h1>Defense</h1>
       <div style={{ display: "flex" }}>
-        <Stat
+        {/* <Stat
           label={data.armorClass.name}
           value={data.armorClass.value}
           modifiers={data.armorClass.modifiers}
-        />
+        /> */}
         <Stat label="Touch AC" value="14" />
         <Stat label="Flat-Footed" value="10" />
       </div>

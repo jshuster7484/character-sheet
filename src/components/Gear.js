@@ -11,13 +11,14 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import { useData } from "../App";
+import { Formik, Form, Field } from "formik";
 
 const itemTypes = ["Armor", "Melee Weapon", "Ranged Weapon", "Misc."];
 
-export default function Gear() {
-  const [data] = useData();
+export default function Gear(props) {
   const [open, setOpen] = React.useState(false);
+  const { gear } = props;
+  console.log("GEAR", gear);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -27,13 +28,30 @@ export default function Gear() {
     setOpen(false);
   };
 
+  const handleSubmit = values => {
+    console.log("submitted", values);
+    setOpen(false);
+
+    const newItem = {
+      name: values.name,
+      type: values.type,
+    };
+
+    const data = JSON.parse(localStorage.getItem("data"));
+    console.log("data", data);
+    console.log("data.gear", data.gear);
+    data.gear.push(newItem);
+    localStorage.setItem("data", JSON.stringify(data));
+    props.forceUpdate();
+  };
+
   return (
     <div className="gear">
       <Card variant="outlined">
         <CardHeader title="Inventory" />
         <CardContent style={{ display: "flex" }}>
-          {data.gear.map(item => (
-            <Card className="stat" variant="outlined">
+          {gear.map(item => (
+            <Card className="stat" key={item.name} variant="outlined">
               <Typography align="center" variant="body1">
                 {item.name}
               </Typography>
@@ -51,21 +69,34 @@ export default function Gear() {
         aria-labelledby="simple-dialog-title"
         open={open}
       >
-        <DialogTitle>Add item</DialogTitle>
-        <DialogContent>
-          <TextField autoFocus label="Name" fullWidth />
-          <TextField label="Type" fullWidth select>
+        <Formik
+          initialValues={{ name: "", type: "" }}
+          onSubmit={values => handleSubmit(values)}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              <DialogTitle>Add item</DialogTitle>
+              <DialogContent>
+                <Field type="string" name="name" />
+                <Field type="string" name="type" />
+              </DialogContent>
+              <DialogActions>
+                <Button color="primary" disabled={isSubmitting} type="submit">
+                  Add
+                </Button>
+              </DialogActions>
+            </Form>
+          )}
+        </Formik>
+      </Dialog>
+      {/* <TextField autoFocus label="Name" fullWidth name="name" />
+          <TextField label="Type" fullWidth name="type" select>
             {itemTypes.map(option => (
               <MenuItem key={option} value={option}>
                 {option}
               </MenuItem>
             ))}
-          </TextField>
-        </DialogContent>
-        <DialogActions>
-          <Button color="primary">Add</Button>
-        </DialogActions>
-      </Dialog>
+          </TextField> */}
     </div>
   );
 }

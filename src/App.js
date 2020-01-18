@@ -1,43 +1,40 @@
-import React from "react";
+import Container from "@material-ui/core/Container";
+import React, { useState } from "react";
 import "./App.css";
+import ashData from "./ash.json";
 import Character from "./components/Character";
 import Defense from "./components/Defense";
 import Gear from "./components/Gear";
 import Offense from "./components/Offense";
 import Portrait from "./components/Portrait";
-import Skills from "./components/skills/Skills";
-import Container from "@material-ui/core/Container";
 
-import ashData from "./ash.json";
-
-const DataContext = React.createContext();
-
-export function useData() {
-  const context = React.useContext(DataContext);
-  if (!context) {
-    throw new Error(`useData must be used within a DataProvider`);
-  }
-  return context;
+function resetData() {
+  localStorage.setItem("data", JSON.stringify(ashData));
 }
 
-function DataProvider(props) {
-  const [data, setData] = React.useState(ashData);
-  const value = React.useMemo(() => [data, setData], [data]);
-  return <DataContext.Provider value={value} {...props} />;
+function useForceUpdate() {
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => ++value); // update the state to force render
 }
 
 function App() {
+  const data = JSON.parse(localStorage.getItem("data"));
+  if (!data) {
+    resetData();
+  }
+  const { hp, max_hp, gear } = data;
+
+  const forceUpdate = useForceUpdate();
+
   return (
     <Container className="App">
       <main>
-        <DataProvider>
-          <Portrait />
-          <Character />
-          <Defense />
-          <Offense />
-          <Gear />
-          {/* <Skills style={{ gridRow: 1 }} /> */}
-        </DataProvider>
+        <Portrait hp={hp} max_hp={max_hp} />
+        <Character />
+        {/* <Defense /> */}
+        <Offense />
+        <Gear gear={gear} forceUpdate={forceUpdate} />
+        {/* <Skills style={{ gridRow: 1 }} /> */}
       </main>
     </Container>
   );
