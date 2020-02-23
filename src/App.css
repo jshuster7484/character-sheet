@@ -5,7 +5,7 @@ main {
   grid-template-rows: repeat(6, 200px); */
 }
 
-.gear {
+.inventory {
   margin-top: 1rem;
 }
 

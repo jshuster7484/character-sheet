@@ -4,7 +4,7 @@ import "./App.css";
 import ashData from "./ash.json";
 import Character from "./components/Character";
 import Defense from "./components/Defense";
-import Gear from "./components/Gear";
+import Inventory from "./components/Inventory";
 import Offense from "./components/Offense";
 import Portrait from "./components/Portrait";
 
@@ -12,29 +12,42 @@ function resetData() {
   localStorage.setItem("data", JSON.stringify(ashData));
 }
 
-function useForceUpdate() {
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue(value => ++value); // update the state to force render
+const DataContext = React.createContext();
+
+export function useData() {
+  const context = React.useContext(DataContext);
+  if (!context) {
+    throw new Error(`useData must be used within a DataProvider`);
+  }
+  return context;
+}
+
+function DataProvider(props) {
+  const [hitPoints, setHitPoints] = React.useState(ashData.hitPoints);
+
+  return (
+    <DataContext.Provider
+      value={{
+        hitPoints: [hitPoints, setHitPoints],
+      }}
+    >
+      {props.children}
+    </DataContext.Provider>
+  );
 }
 
 function App() {
-  const data = JSON.parse(localStorage.getItem("data"));
-  if (!data) {
-    resetData();
-  }
-  const { hp, max_hp, gear } = data;
-
-  const forceUpdate = useForceUpdate();
-
   return (
     <Container className="App">
       <main>
-        <Portrait hp={hp} max_hp={max_hp} />
-        <Character />
-        {/* <Defense /> */}
-        <Offense />
-        <Gear gear={gear} forceUpdate={forceUpdate} />
-        {/* <Skills style={{ gridRow: 1 }} /> */}
+        <DataProvider>
+          {/* <Portrait /> */}
+          <Character />
+          <Defense />
+          <Offense />
+          <Inventory />
+          {/* <Skills style={{ gridRow: 1 }} /> */}
+        </DataProvider>
       </main>
     </Container>
   );

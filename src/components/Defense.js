@@ -6,11 +6,11 @@ export default function Defense() {
     <section className="defense">
       <h1>Defense</h1>
       <div style={{ display: "flex" }}>
-        {/* <Stat
-          label={data.armorClass.name}
-          value={data.armorClass.value}
-          modifiers={data.armorClass.modifiers}
-        /> */}
+        <Stat
+          label="Armor Class"
+          value={10}
+          modifiers={[{ name: "Leather Armor", value: 2 }]}
+        />
         <Stat label="Touch AC" value="14" />
         <Stat label="Flat-Footed" value="10" />
       </div>

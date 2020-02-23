@@ -7,7 +7,11 @@ export default function Character() {
       <h1>Ability Scores</h1>
       <div style={{ display: "flex" }}>
         <Ability name="Strength" value={12} />
-        <Ability name="Dexterity" value={20} />
+        <Ability
+          name="Dexterity"
+          value={20}
+          modifiers={[{ name: "Bracers of Dexterity", value: 2 }]}
+        />
         <Ability name="Constitution" value={10} />
         <Ability name="Intelligence" value={9} />
         <Ability name="Wisdom" value={20} />

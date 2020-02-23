@@ -2,8 +2,8 @@
   "name": "Ash",
   "class": "rogue",
   "race": "human",
-  "max_hp": 48,
-  "hp": 48,
+  "maxHitPoints": 48,
+  "hitPoints": 48,
   "abilities": [
     { "name": "Strength", "value": 14, "modifiers": [] },
     {
@@ -41,7 +41,7 @@
   "reflex": 4,
   "will": 4,
   "feats": [],
-  "gear": [
+  "inventory": [
     {
       "name": "Leather Armor",
       "quantity": 1,
@@ -54,7 +54,7 @@
       "quantity": 10,
       "modifiers": [],
       "equipped": false,
-      "type": "item"
+      "type": "misc"
     }
   ],
   "skills": [
