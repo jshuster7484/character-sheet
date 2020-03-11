@@ -58,8 +58,10 @@ export default function Inventory() {
   const [open, setOpen] = useState(false);
 
   const onAdd = name => {
-    const newInventory = inventory.concat([{ name }]);
-    setInventory(newInventory);
+    if (!inventory.some(item => item.name === name)) {
+      const newInventory = inventory.concat([{ name }]);
+      setInventory(newInventory);
+    }
   };
 
   const onDelete = name => {
