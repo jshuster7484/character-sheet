@@ -37,7 +37,7 @@ export default function Offense() {
         <Stat label="Speed" value="30" />
         <Stat label="CMB" value="4" />
       </div>
-      <h2>Melee</h2>
+      {/* <h2>Melee</h2>
       <p>
         Roll a d20 and add attack bonus. If the attack succeeds roll the damage
         die and add the damage bonus.
@@ -69,7 +69,7 @@ export default function Offense() {
             </TableRow>
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer> */}
     </section>
   );
 }

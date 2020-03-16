@@ -1,21 +1,35 @@
 import React from "react";
 import Ability from "./Ability";
 
-export default function Character() {
+export default function Character(props) {
+  const {
+    characterClass,
+    name,
+    race,
+    strength,
+    dexterity,
+    constitution,
+    intelligence,
+    wisdom,
+    charisma,
+  } = props;
   return (
     <section className="character">
+      <span>
+        {name}, {race} {characterClass}
+      </span>
       <h1>Ability Scores</h1>
       <div style={{ display: "flex" }}>
-        <Ability name="Strength" value={12} />
+        <Ability name="Strength" value={strength} />
         <Ability
           name="Dexterity"
-          value={20}
+          value={dexterity}
           modifiers={[{ name: "Bracers of Dexterity", value: 2 }]}
         />
-        <Ability name="Constitution" value={10} />
-        <Ability name="Intelligence" value={9} />
-        <Ability name="Wisdom" value={20} />
-        <Ability name="Charisma" value={13} />
+        <Ability name="Constitution" value={constitution} />
+        <Ability name="Intelligence" value={intelligence} />
+        <Ability name="Wisdom" value={wisdom} />
+        <Ability name="Charisma" value={charisma} />
       </div>
     </section>
   );

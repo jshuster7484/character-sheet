@@ -1,5 +1,6 @@
-import Container from "@material-ui/core/Container";
 import React, { useState } from "react";
+import { Button, Container } from "@material-ui/core";
+
 import "./App.css";
 import ashData from "./ash.json";
 import Character from "./components/Character";
@@ -7,6 +8,27 @@ import Defense from "./components/Defense";
 import Inventory from "./components/Inventory";
 import Offense from "./components/Offense";
 import Portrait from "./components/Portrait";
+import NewCharacterForm from "./components/NewCharacterForm";
+
+const newCharacter = {
+  name: "",
+  race: "",
+  characterClass: "",
+  strength: "",
+  dexterity: "",
+  constitution: "",
+  wisdom: "",
+  intelligence: "",
+  charisma: "",
+  hitPoints: "",
+  fortitude: "",
+  reflex: "",
+  will: "",
+  cmd: "",
+  initiative: "",
+  speed: "",
+  cmb: "",
+};
 
 function resetData() {
   localStorage.setItem("data", JSON.stringify(ashData));
@@ -37,17 +59,53 @@ function DataProvider(props) {
 }
 
 function App() {
+  const [edit, setEdit] = useState(false);
+
+  const handleEditToggle = () => {
+    setEdit(!edit);
+  };
+
+  const character = localStorage.getItem("character")
+    ? JSON.parse(localStorage.getItem("character"))
+    : newCharacter;
+
   return (
     <Container className="App">
       <main>
-        <DataProvider>
-          {/* <Portrait /> */}
-          <Character />
-          <Defense />
-          <Offense />
-          <Inventory />
-          {/* <Skills style={{ gridRow: 1 }} /> */}
-        </DataProvider>
+        <header
+          style={{
+            display: "flex",
+            alignItems: "baseline",
+            justifyContent: "space-between",
+          }}
+        >
+          <h1>Character Sheet</h1>
+          <Button onClick={handleEditToggle} style={{ height: "auto" }}>
+            {edit ? "Cancel" : "Edit Character"}
+          </Button>
+        </header>
+        {edit ? (
+          <NewCharacterForm character={character} setEdit={setEdit} />
+        ) : (
+          <DataProvider>
+            {/* <Portrait /> */}
+            <Character
+              name={character.name}
+              characterClass={character.characterClass}
+              race={character.race}
+              strength={character.strength}
+              dexterity={character.dexterity}
+              constitution={character.constitution}
+              intelligence={character.intelligence}
+              wisdom={character.wisdom}
+              charisma={character.charisma}
+            />
+            <Defense />
+            <Offense />
+            <Inventory />
+            {/* <Skills style={{ gridRow: 1 }} /> */}
+          </DataProvider>
+        )}
       </main>
     </Container>
   );

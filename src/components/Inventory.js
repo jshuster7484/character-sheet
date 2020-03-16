@@ -81,14 +81,14 @@ export default function Inventory() {
   return (
     <section className="inventory">
       <h1>Inventory</h1>
-      <AddItem onAdd={onAdd} />
       <div style={{ display: "flex" }}>
         {inventory.map(item => (
           <Item key={item.name} onDelete={onDelete} {...item} />
         ))}
       </div>
+      <AddItem onAdd={onAdd} />
       <div>
-        <Button
+        {/* <Button
           color="primary"
           onClick={() => {
             initialValues = {};
@@ -97,7 +97,7 @@ export default function Inventory() {
           variant="contained"
         >
           Add Item
-        </Button>
+        </Button> */}
       </div>
       <Dialog
         onClose={() => setOpen(false)}
