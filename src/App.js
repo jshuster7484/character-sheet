@@ -8,19 +8,13 @@ import Defense from "./components/Defense";
 import Inventory from "./components/Inventory";
 import Offense from "./components/Offense";
 import Portrait from "./components/Portrait";
-import NewCharacterForm from "./components/NewCharacterForm";
-import { setNestedObjectValues } from "formik";
+import CharacterForm, { abilities } from "./components/CharacterForm";
 
 const newCharacter = {
   name: "",
   race: "",
   characterClass: "",
-  strength: "",
-  dexterity: "",
-  constitution: "",
-  wisdom: "",
-  intelligence: "",
-  charisma: "",
+  ...abilities.map(ability => ability.name),
   hitPoints: "",
   fortitude: "",
   reflex: "",
@@ -94,22 +88,11 @@ function App() {
           </Button>
         </header>
         {edit ? (
-          <NewCharacterForm character={character} setEdit={setEdit} />
+          <CharacterForm character={character} setEdit={setEdit} />
         ) : (
           <DataProvider>
             {/* <Portrait /> */}
-            <Character
-              name={character.name}
-              characterClass={character.characterClass}
-              race={character.race}
-              strength={character.strength}
-              dexterity={character.dexterity}
-              constitution={character.constitution}
-              intelligence={character.intelligence}
-              wisdom={character.wisdom}
-              charisma={character.charisma}
-              inventory={inventory}
-            />
+            <Character character={character} inventory={inventory} />
             <Defense />
             <Offense />
             <Inventory inventory={inventory} setInventory={setInventories} />

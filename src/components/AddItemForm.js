@@ -9,17 +9,9 @@ import {
   TextField,
 } from "@material-ui/core";
 import { Formik, Field, Form } from "formik";
+import { abilities } from "./CharacterForm";
 
 const itemTypes = ["Armor", "Consumable", "Tool", "Weapon"];
-
-const modTargets = [
-  "Strength",
-  "Dexterity",
-  "Constitution",
-  "Intelligence",
-  "Wisdom",
-  "Charisma",
-];
 
 export default function AddItem({ onAdd }) {
   const [open, setOpen] = useState(false);
@@ -75,9 +67,9 @@ export default function AddItem({ onAdd }) {
                   label="Modifier Target"
                   select
                 >
-                  {modTargets.map(type => (
-                    <MenuItem key={type} value={type}>
-                      {type}
+                  {abilities.map(ability => (
+                    <MenuItem key={ability.name} value={ability.name}>
+                      {ability.label}
                     </MenuItem>
                   ))}
                 </Field>

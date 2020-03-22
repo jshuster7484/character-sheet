@@ -29,25 +29,14 @@ const classes = [
   "Wizard",
 ];
 
-const newCharacter = {
-  name: "",
-  race: "",
-  characterClass: "",
-  strength: "",
-  dexterity: "",
-  constitution: "",
-  wisdom: "",
-  intelligence: "",
-  charisma: "",
-  hitPoints: "",
-  fortitude: "",
-  reflex: "",
-  will: "",
-  cmd: "",
-  initiative: "",
-  speed: "",
-  cmb: "",
-};
+export const abilities = [
+  { name: "str", label: "Strength" },
+  { name: "dex", label: "Dexterity" },
+  { name: "con", label: "Constitution" },
+  { name: "int", label: "Intelligence" },
+  { name: "wis", label: "Wisdom" },
+  { name: "chr", label: "Charisma" },
+];
 
 export default function NewCharacterForm(props) {
   const { character, setEdit } = props;
@@ -85,48 +74,15 @@ export default function NewCharacterForm(props) {
               ))}
             </Field>
             <h2>Ability Scores</h2>
-            <Field
-              as={TextField}
-              name="strength"
-              type="number"
-              fullWidth
-              label="Strength"
-            />
-            <Field
-              as={TextField}
-              name="dexterity"
-              type="number"
-              fullWidth
-              label="Dexterity"
-            />
-            <Field
-              as={TextField}
-              name="constitution"
-              type="number"
-              fullWidth
-              label="Constitution"
-            />
-            <Field
-              as={TextField}
-              name="intelligence"
-              type="number"
-              fullWidth
-              label="Intelligence"
-            />
-            <Field
-              as={TextField}
-              name="wisdom"
-              type="number"
-              fullWidth
-              label="Wisdom"
-            />
-            <Field
-              as={TextField}
-              name="charisma"
-              type="number"
-              fullWidth
-              label="Charisma"
-            />
+            {abilities.map(ability => (
+              <Field
+                as={TextField}
+                name={ability.name}
+                type="number"
+                fullWidth
+                label={ability.label}
+              />
+            ))}
             <h2>Defense</h2>
             <Field
               as={TextField}
