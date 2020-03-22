@@ -41,8 +41,8 @@ export default function AddItem({ onAdd }) {
           initialValues={{
             name: "",
             type: "",
-            // modName: "",
-            // modValue: "",
+            modTarget: "",
+            modValue: "",
           }}
           onSubmit={values => {
             console.log("attempting submit");
@@ -67,6 +67,26 @@ export default function AddItem({ onAdd }) {
                     </MenuItem>
                   ))}
                 </Field>
+                <h2>Modifiers</h2>
+                <Field
+                  as={TextField}
+                  fullWidth
+                  name="modTarget"
+                  label="Modifier Target"
+                  select
+                >
+                  {modTargets.map(type => (
+                    <MenuItem key={type} value={type}>
+                      {type}
+                    </MenuItem>
+                  ))}
+                </Field>
+                <Field
+                  as={TextField}
+                  fullWidth
+                  name="modValue"
+                  label="Modifier Value"
+                />
               </DialogContent>
               <DialogActions>
                 <Button type="submit">Save</Button>

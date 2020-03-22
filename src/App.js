@@ -9,6 +9,7 @@ import Inventory from "./components/Inventory";
 import Offense from "./components/Offense";
 import Portrait from "./components/Portrait";
 import NewCharacterForm from "./components/NewCharacterForm";
+import { setNestedObjectValues } from "formik";
 
 const newCharacter = {
   name: "",
@@ -59,6 +60,9 @@ function DataProvider(props) {
 }
 
 function App() {
+  const localInventory = JSON.parse(localStorage.getItem("inventory"));
+
+  const [inventory, setInventory] = useState(localInventory);
   const [edit, setEdit] = useState(false);
 
   const handleEditToggle = () => {
@@ -68,6 +72,11 @@ function App() {
   const character = localStorage.getItem("character")
     ? JSON.parse(localStorage.getItem("character"))
     : newCharacter;
+
+  const setInventories = newInventory => {
+    setInventory(newInventory);
+    localStorage.setItem("inventory", JSON.stringify(newInventory));
+  };
 
   return (
     <Container className="App">
@@ -99,10 +108,11 @@ function App() {
               intelligence={character.intelligence}
               wisdom={character.wisdom}
               charisma={character.charisma}
+              inventory={inventory}
             />
             <Defense />
             <Offense />
-            <Inventory />
+            <Inventory inventory={inventory} setInventory={setInventories} />
             {/* <Skills style={{ gridRow: 1 }} /> */}
           </DataProvider>
         )}

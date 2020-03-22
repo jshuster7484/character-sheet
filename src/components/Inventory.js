@@ -30,19 +30,14 @@ const itemTypes = [
   { label: "Misc.", value: "misc" },
 ];
 
-const getInventory = () => {
-  return JSON.parse(localStorage.getItem("inventory"));
-};
-
-export default function Inventory() {
-  const [inventory, setInventory] = useState(getInventory());
+export default function Inventory(props) {
+  const { inventory, setInventory } = props;
   const [open, setOpen] = useState(false);
 
   const onAdd = toAdd => {
     if (!inventory.some(item => item.name === toAdd.name)) {
       const newInventory = inventory.concat([toAdd]);
       setInventory(newInventory);
-      localStorage.setItem("inventory", JSON.stringify(newInventory));
     }
   };
 

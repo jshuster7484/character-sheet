@@ -13,7 +13,7 @@ export default function Sum(props) {
         >
           <Typography>{mod.name}</Typography>
           <Typography style={{ marginLeft: "1rem" }}>
-            {getStringNumber(mod.value)}
+            {getStringNumber(parseInt(mod.modValue))}
           </Typography>
         </div>
       ))}
