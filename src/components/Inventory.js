@@ -5,7 +5,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import AddItemForm from "./AddItemForm";
+import ItemForm from "./ItemForm";
 import Item from "./Item";
 
 import { Field, Form, Formik } from "formik";
@@ -30,9 +30,24 @@ const itemTypes = [
   { label: "Misc.", value: "misc" },
 ];
 
+const newItem = {
+  name: "",
+  type: "",
+  modTarget: "",
+  modValue: "",
+};
+
 export default function Inventory(props) {
-  const { inventory, setInventory } = props;
   const [open, setOpen] = useState(false);
+  const { inventory, setInventory } = props;
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   const onAdd = toAdd => {
     if (!inventory.some(item => item.name === toAdd.name)) {
@@ -48,117 +63,29 @@ export default function Inventory(props) {
     setInventory(filteredInventory);
   };
 
-  let initialValues = {};
-
-  const addItem = item => {
-    const newInventory = inventory.concat([item]);
-    setInventory(newInventory);
-  };
-
   return (
     <section className="inventory">
       <h1>Inventory</h1>
       <div style={{ display: "flex" }}>
         {inventory.map(item => (
-          <Item key={item.name} onDelete={onDelete} {...item} />
+          <Item
+            key={item.name}
+            handleClose={handleClose}
+            onDelete={onDelete}
+            onAdd={onAdd}
+            item={item}
+          />
         ))}
       </div>
-      <AddItemForm onAdd={onAdd} />
-      <Dialog
-        onClose={() => setOpen(false)}
-        aria-labelledby="simple-dialog-title"
+      <Button onClick={handleOpen}>Add New Item</Button>
+      <ItemForm
+        initialValues={newItem}
+        onAdd={onAdd}
         open={open}
-        fullWidth
-        maxWidth="xs"
-      >
-        <Formik
-          initialValues={initialValues}
-          onSubmit={values => {
-            setOpen(false);
-            addItem(values);
-          }}
-        >
-          {({ values, isSubmitting }) => (
-            <Form>
-              <DialogTitle>Item</DialogTitle>
-              <DialogContent>
-                <Field
-                  as={TextField}
-                  type="string"
-                  name="name"
-                  autoFocus
-                  label="Name"
-                  fullWidth
-                />
-                <Field
-                  as={TextField}
-                  type="string"
-                  name="type"
-                  label="Type"
-                  fullWidth
-                  select
-                >
-                  {itemTypes.map(option => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Field>
-                {values.type === "armor" ? (
-                  <Field
-                    as={TextField}
-                    type="number"
-                    name="acBonus"
-                    label="AC Bonus"
-                    fullWidth
-                  />
-                ) : null}
-                <Typography>Modifiers</Typography>
-                <Field
-                  as={TextField}
-                  type="string"
-                  name="target"
-                  label="Target"
-                  fullWidth
-                  select
-                >
-                  {modifierTargets.map(option => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Field>
-                <Field
-                  as={TextField}
-                  type="number"
-                  name="bonus"
-                  label="Bonus"
-                  fullWidth
-                />
-              </DialogContent>
-              <DialogActions>
-                {/* {item ? (
-                  <Button
-                    color="secondary"
-                    onClick={() => deleteItem(item)}
-                    variant="contained"
-                  >
-                    Delete
-                  </Button>
-                ) : null} */}
-                <Button
-                  color="primary"
-                  disabled={isSubmitting}
-                  type="submit"
-                  variant="contained"
-                >
-                  Add
-                </Button>
-              </DialogActions>
-            </Form>
-          )}
-        </Formik>
-      </Dialog>
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+        title="New Item"
+      />
     </section>
   );
 }

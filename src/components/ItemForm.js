@@ -13,32 +13,22 @@ import { abilities } from "./CharacterForm";
 
 const itemTypes = ["Armor", "Consumable", "Tool", "Weapon"];
 
-export default function AddItem({ onAdd }) {
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
+export default function AddItem({
+  onAdd,
+  onDelete,
+  handleClose,
+  open,
+  initialValues,
+  title,
+}) {
   return (
     <div>
-      <Button onClick={handleOpen}>Add New Item</Button>
       <Dialog fullWidth open={open} onClose={handleClose} size="xs">
-        <DialogTitle>New Item</DialogTitle>
+        <DialogTitle>{title}</DialogTitle>
         <Formik
-          initialValues={{
-            name: "",
-            type: "",
-            modTarget: "",
-            modValue: "",
-          }}
+          initialValues={initialValues}
           onSubmit={values => {
-            console.log("attempting submit");
-            setOpen(false);
+            handleClose();
             onAdd({ ...values, key: values.name });
           }}
         >
@@ -78,9 +68,12 @@ export default function AddItem({ onAdd }) {
                   fullWidth
                   name="modValue"
                   label="Modifier Value"
+                  type="number"
                 />
               </DialogContent>
               <DialogActions>
+                {onDelete ? <Button onClick={onDelete}>Delete</Button> : null}
+
                 <Button type="submit">Save</Button>
               </DialogActions>
             </Form>

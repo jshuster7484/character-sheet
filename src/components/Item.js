@@ -1,17 +1,12 @@
 import React from "react";
 import Card from "@material-ui/core/Card";
-import Dialog from "@material-ui/core/Dialog";
-import {
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from "@material-ui/core";
+import ItemForm from "./ItemForm";
 
-export default function Item({ onDelete, name }) {
+export default function Item({ onAdd, onDelete, item }) {
   const [open, setOpen] = React.useState(false);
-  const deleteItem = () => {
-    onDelete(name);
+
+  const handleDelete = () => {
+    onDelete(item.name);
   };
 
   const handleClose = () => {
@@ -22,26 +17,19 @@ export default function Item({ onDelete, name }) {
     setOpen(true);
   };
 
-  const saveItem = () => {
-    console.log("do a thing");
-    setOpen(false);
-  };
-
   return (
     <div>
       <Card className="stat" variant="outlined" onClick={handleOpen}>
-        <span>{name}</span>
+        <span>{item.name}</span>
       </Card>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{name}</DialogTitle>
-        <DialogContent>
-          <span>Some item information here.</span>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={deleteItem}>Delete</Button>
-          <Button>Save</Button>
-        </DialogActions>
-      </Dialog>
+      <ItemForm
+        initialValues={item}
+        handleClose={handleClose}
+        open={open}
+        onAdd={onAdd}
+        onDelete={handleDelete}
+        title={item.name}
+      />
     </div>
   );
 }
