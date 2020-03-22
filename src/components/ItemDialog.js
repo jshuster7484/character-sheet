@@ -58,6 +58,14 @@ export default function ItemDialog(props) {
                 label="Type"
                 fullWidth
               />
+              <h1>Modifiers</h1>
+              <Field
+                as={TextField}
+                type="numeric"
+                name="mod1"
+                label="Modifier Value"
+                fullWidth
+              />
             </DialogContent>
             <DialogActions>
               {item ? (

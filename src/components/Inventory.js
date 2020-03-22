@@ -5,7 +5,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import AddItem from "./AddItem";
+import AddItemForm from "./AddItemForm";
 import Item from "./Item";
 
 import { Field, Form, Formik } from "formik";
@@ -30,25 +30,6 @@ const itemTypes = [
   { label: "Misc.", value: "misc" },
 ];
 
-const initialInventory = [
-  {
-    name: "Leather Armor",
-    quantity: 1,
-    modifiers: [],
-    equipped: true,
-    type: "armor",
-  },
-  {
-    name: "Torch",
-    quantity: 10,
-    modifiers: [],
-    equipped: false,
-    type: "misc",
-  },
-];
-
-localStorage.setItem("inventory", JSON.stringify(initialInventory));
-
 const getInventory = () => {
   return JSON.parse(localStorage.getItem("inventory"));
 };
@@ -57,10 +38,11 @@ export default function Inventory() {
   const [inventory, setInventory] = useState(getInventory());
   const [open, setOpen] = useState(false);
 
-  const onAdd = name => {
-    if (!inventory.some(item => item.name === name)) {
-      const newInventory = inventory.concat([{ name }]);
+  const onAdd = toAdd => {
+    if (!inventory.some(item => item.name === toAdd.name)) {
+      const newInventory = inventory.concat([toAdd]);
       setInventory(newInventory);
+      localStorage.setItem("inventory", JSON.stringify(newInventory));
     }
   };
 
@@ -86,19 +68,7 @@ export default function Inventory() {
           <Item key={item.name} onDelete={onDelete} {...item} />
         ))}
       </div>
-      <AddItem onAdd={onAdd} />
-      <div>
-        {/* <Button
-          color="primary"
-          onClick={() => {
-            initialValues = {};
-            setOpen(true);
-          }}
-          variant="contained"
-        >
-          Add Item
-        </Button> */}
-      </div>
+      <AddItemForm onAdd={onAdd} />
       <Dialog
         onClose={() => setOpen(false)}
         aria-labelledby="simple-dialog-title"
