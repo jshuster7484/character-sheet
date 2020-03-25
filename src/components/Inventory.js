@@ -35,11 +35,12 @@ const newItem = {
   type: "",
   modTarget: "",
   modValue: "",
+  modifiers: [],
 };
 
 export default function Inventory(props) {
   const [open, setOpen] = useState(false);
-  const { inventory, setInventory } = props;
+  const { inventory, setInventory, modifiers, setModifiers } = props;
 
   const handleClose = () => {
     setOpen(false);
@@ -49,31 +50,49 @@ export default function Inventory(props) {
     setOpen(true);
   };
 
-  const onAdd = toAdd => {
-    if (!inventory.some(item => item.name === toAdd.name)) {
-      const newInventory = inventory.concat([toAdd]);
+  const onAdd = (itemToAdd, modifiersToAdd) => {
+    if (!inventory.some(item => item.name === itemToAdd.name)) {
+      const newInventory = inventory.concat([itemToAdd]);
       setInventory(newInventory);
+
+      const newModifiers = modifiers.concat(modifiersToAdd);
+      setModifiers(newModifiers);
     }
   };
 
+  const onUpdate = (itemToUpdate, modifiersToUpdate) => {
+    setInventory(
+      inventory
+        .filter(item => item.name !== itemToUpdate.name)
+        .concat([itemToUpdate]),
+    );
+    setModifiers(
+      modifiers
+        .filter(mod => mod.source !== itemToUpdate.name)
+        .concat(modifiersToUpdate),
+    );
+  };
+
   const onDelete = name => {
-    const filteredInventory = inventory.filter(item => {
-      return item.name !== name;
-    });
+    const filteredInventory = inventory.filter(item => item.name !== name);
     setInventory(filteredInventory);
+
+    const filteredModifiers = modifiers.filter(mod => mod.source !== name);
+    setModifiers(filteredModifiers);
   };
 
   return (
     <section className="inventory">
       <h1>Inventory</h1>
       <div style={{ display: "flex" }}>
-        {inventory.map(item => (
+        {inventory.sort().map(item => (
           <Item
             key={item.name}
             handleClose={handleClose}
             onDelete={onDelete}
-            onAdd={onAdd}
+            onAdd={onUpdate}
             item={item}
+            modifiers={modifiers}
           />
         ))}
       </div>
@@ -84,6 +103,7 @@ export default function Inventory(props) {
         open={open}
         handleOpen={handleOpen}
         handleClose={handleClose}
+        modifiers={modifiers}
         title="New Item"
       />
     </section>

@@ -39,13 +39,13 @@ export const abilities = [
 ];
 
 export default function NewCharacterForm(props) {
-  const { character, setEdit } = props;
+  const { character, setCharacter, setEdit } = props;
 
   return (
     <Formik
       initialValues={character}
       onSubmit={values => {
-        localStorage.setItem("character", JSON.stringify(values));
+        setCharacter(values);
         setEdit(false);
       }}
     >

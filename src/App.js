@@ -10,11 +10,16 @@ import Offense from "./components/Offense";
 import Portrait from "./components/Portrait";
 import CharacterForm, { abilities } from "./components/CharacterForm";
 
-const newCharacter = {
+const emptyCharacter = {
   name: "",
   race: "",
   characterClass: "",
-  ...abilities.map(ability => ability.name),
+  str: "",
+  dex: "",
+  con: "",
+  int: "",
+  wis: "",
+  chr: "",
   hitPoints: "",
   fortitude: "",
   reflex: "",
@@ -25,49 +30,39 @@ const newCharacter = {
   cmb: "",
 };
 
-function resetData() {
-  localStorage.setItem("data", JSON.stringify(ashData));
-}
-
-const DataContext = React.createContext();
-
-export function useData() {
-  const context = React.useContext(DataContext);
-  if (!context) {
-    throw new Error(`useData must be used within a DataProvider`);
+const loadLocalData = (key, emptyValue) => {
+  if (localStorage.getItem(key)) {
+    return JSON.parse(localStorage.getItem(key));
   }
-  return context;
-}
-
-function DataProvider(props) {
-  const [hitPoints, setHitPoints] = React.useState(ashData.hitPoints);
-
-  return (
-    <DataContext.Provider
-      value={{
-        hitPoints: [hitPoints, setHitPoints],
-      }}
-    >
-      {props.children}
-    </DataContext.Provider>
-  );
-}
+  localStorage.setItem(key, JSON.stringify(emptyValue));
+  return emptyValue;
+};
 
 function App() {
-  const localInventory = JSON.parse(localStorage.getItem("inventory"));
+  const localCharacter = loadLocalData("character", emptyCharacter);
+  const localInventory = loadLocalData("inventory", []);
+  const localModifiers = loadLocalData("modifiers", []);
 
+  const [character, setCharacter] = useState(localCharacter);
   const [inventory, setInventory] = useState(localInventory);
+  const [modifiers, setModifiers] = useState(localModifiers);
   const [edit, setEdit] = useState(false);
 
   const handleEditToggle = () => {
     setEdit(!edit);
   };
 
-  const character = localStorage.getItem("character")
-    ? JSON.parse(localStorage.getItem("character"))
-    : newCharacter;
+  const setAllCharacters = newCharacter => {
+    setCharacter(newCharacter);
+    localStorage.setItem("character", JSON.stringify(newCharacter));
+  };
 
-  const setInventories = newInventory => {
+  const setAllModifiers = newModifiers => {
+    setModifiers(newModifiers);
+    localStorage.setItem("modifiers", JSON.stringify(newModifiers));
+  };
+
+  const setAllInventories = newInventory => {
     setInventory(newInventory);
     localStorage.setItem("inventory", JSON.stringify(newInventory));
   };
@@ -88,16 +83,23 @@ function App() {
           </Button>
         </header>
         {edit ? (
-          <CharacterForm character={character} setEdit={setEdit} />
+          <CharacterForm
+            character={character}
+            setCharacter={setAllCharacters}
+            setEdit={setEdit}
+          />
         ) : (
-          <DataProvider>
-            {/* <Portrait /> */}
+          <div>
             <Character character={character} inventory={inventory} />
             <Defense />
             <Offense />
-            <Inventory inventory={inventory} setInventory={setInventories} />
-            {/* <Skills style={{ gridRow: 1 }} /> */}
-          </DataProvider>
+            <Inventory
+              inventory={inventory}
+              setInventory={setAllInventories}
+              modifiers={modifiers}
+              setModifiers={setAllModifiers}
+            />
+          </div>
         )}
       </main>
     </Container>

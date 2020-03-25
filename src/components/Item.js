@@ -2,7 +2,7 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import ItemForm from "./ItemForm";
 
-export default function Item({ onAdd, onDelete, item }) {
+export default function Item({ onAdd, onDelete, item, modifiers }) {
   const [open, setOpen] = React.useState(false);
 
   const handleDelete = () => {
@@ -28,6 +28,7 @@ export default function Item({ onAdd, onDelete, item }) {
         open={open}
         onAdd={onAdd}
         onDelete={handleDelete}
+        modifiers={modifiers}
         title={item.name}
       />
     </div>
