@@ -3,7 +3,7 @@ import Ability from "./Ability";
 import { abilities } from "./CharacterForm";
 
 export default function Character(props) {
-  const { character, inventory } = props;
+  const { character, inventory, modifiers } = props;
   const { name, race, characterClass } = character;
 
   // const strengthValue =
@@ -25,9 +25,8 @@ export default function Character(props) {
           <Ability
             name={ability.label}
             base={parseInt(character[ability.name])}
-            modifiers={inventory.filter(
-              item => item.modTarget === ability.name,
-            )}
+            inventory={inventory}
+            modifiers={modifiers.filter(mod => mod.target === ability.name)}
           />
         ))}
       </div>

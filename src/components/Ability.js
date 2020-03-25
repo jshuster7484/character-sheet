@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import { getStringNumber } from "../utils";
 
 export default function Ability(props) {
-  const { name, modifiers, base } = props;
+  const { inventory, name, modifiers, base } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -22,8 +22,8 @@ export default function Ability(props) {
 
   const total = modifiers
     ? parseInt(base) +
-      modifiers.reduce(function(prev, item) {
-        return prev + parseInt(item.modValue);
+      modifiers.reduce(function(prev, mod) {
+        return prev + parseInt(mod.value);
       }, 0)
     : parseInt(base);
 
@@ -62,12 +62,12 @@ export default function Ability(props) {
             <>
               {modifiers.map(mod => (
                 <div
-                  key={mod.name}
+                  key={mod.source}
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <Typography>{mod.name}</Typography>
+                  <Typography>{mod.source}</Typography>
                   <Typography style={{ marginLeft: "1rem" }}>
-                    {getStringNumber(parseInt(mod.modValue))}
+                    {getStringNumber(parseInt(mod.value))}
                   </Typography>
                 </div>
               ))}

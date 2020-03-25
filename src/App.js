@@ -90,7 +90,11 @@ function App() {
           />
         ) : (
           <div>
-            <Character character={character} inventory={inventory} />
+            <Character
+              character={character}
+              inventory={inventory}
+              modifiers={modifiers}
+            />
             <Defense />
             <Offense />
             <Inventory
