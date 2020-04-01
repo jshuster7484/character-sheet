@@ -33,8 +33,9 @@ const itemTypes = [
 const newItem = {
   name: "",
   type: "",
-  modTarget: "",
-  modValue: "",
+  armorBonus: "",
+  maxDexBonus: "",
+  spellFailure: "",
   modifiers: [],
 };
 

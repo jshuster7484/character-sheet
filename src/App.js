@@ -95,8 +95,12 @@ function App() {
               inventory={inventory}
               modifiers={modifiers}
             />
-            <Defense />
-            <Offense />
+            <Defense
+              character={character}
+              inventory={inventory}
+              modifiers={modifiers}
+            />
+            <Offense character={character} />
             <Inventory
               inventory={inventory}
               setInventory={setAllInventories}

@@ -14,7 +14,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { Formik, Field, FieldArray, Form } from "formik";
 import { abilities } from "./CharacterForm";
 
-const itemTypes = ["Armor", "Consumable", "Tool", "Weapon"];
+const itemTypes = ["Accessory", "Armor", "Consumable", "Tool", "Weapon"];
 
 export default function AddItem({
   onAdd,
@@ -28,6 +28,34 @@ export default function AddItem({
   const itemModifiers = modifiers.filter(mod => mod.source === title);
   initialValues.modifiers = itemModifiers;
 
+  const armorFields = () => {
+    return (
+      <>
+        <Field
+          as={TextField}
+          fullWidth
+          label="Armor Bonus"
+          name="armorBonus"
+          type="number"
+        />
+        <Field
+          as={TextField}
+          fullWidth
+          label="Maximum Dexterity Bonus"
+          name="maxDexBonus"
+          type="number"
+        />
+        <Field
+          as={TextField}
+          fullWidth
+          label="Arcane Spell Failure Chance"
+          name="spellFailure"
+          type="number"
+        />
+      </>
+    );
+  };
+
   return (
     <div>
       <Dialog fullWidth open={open} onClose={handleClose} size="xs">
@@ -36,10 +64,7 @@ export default function AddItem({
           initialValues={initialValues}
           onSubmit={values => {
             handleClose();
-            onAdd(
-              { name: values.name, type: values.type, key: values.name },
-              values.modifiers,
-            );
+            onAdd({ ...values }, values.modifiers);
           }}
         >
           {({ values, isSubmitting }) => (
@@ -59,6 +84,7 @@ export default function AddItem({
                     </MenuItem>
                   ))}
                 </Field>
+                {values.type === "Armor" ? armorFields() : null}
                 <Typography style={{ marginTop: "32px" }} variant="h6">
                   Modifiers
                 </Typography>

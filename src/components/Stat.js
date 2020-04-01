@@ -1,10 +1,10 @@
 import React from "react";
 import Popover from "@material-ui/core/Popover";
-import Sum from "./Sum";
-import { hasModifier } from "../utils";
+import Typography from "@material-ui/core/Typography";
+import { getStringNumber, hasModifier } from "../utils";
 
-export default function Stat(props) {
-  const { label, value, modifiers } = props;
+const Stat = props => {
+  const { base, label, value, modifiers } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -39,9 +39,27 @@ export default function Stat(props) {
             horizontal: "center",
           }}
         >
-          <Sum modifiers={modifiers} />
+          <div style={{ padding: "1rem" }}>
+            {hasModifier(modifiers) ? (
+              <>
+                {modifiers.map(mod => (
+                  <div
+                    key={mod.source}
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Typography>{mod.label}</Typography>
+                    <Typography style={{ marginLeft: "1rem" }}>
+                      {mod.value}
+                    </Typography>
+                  </div>
+                ))}
+              </>
+            ) : null}
+          </div>
         </Popover>
       ) : null}
     </>
   );
-}
+};
+
+export default Stat;
