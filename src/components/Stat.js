@@ -3,11 +3,11 @@ import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import { getStringNumber, hasModifier } from "../utils";
 
-const Stat = props => {
+const Stat = (props) => {
   const { base, label, value, modifiers } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -42,7 +42,7 @@ const Stat = props => {
           <div style={{ padding: "1rem" }}>
             {hasModifier(modifiers) ? (
               <>
-                {modifiers.map(mod => (
+                {modifiers.map((mod) => (
                   <div
                     key={mod.source}
                     style={{ display: "flex", justifyContent: "space-between" }}

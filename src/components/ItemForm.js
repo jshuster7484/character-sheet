@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { Formik, Field, FieldArray, Form } from "formik";
-import { abilities } from "./CharacterForm";
+import * as abilities from "../data/abilities";
 
 const itemTypes = ["Accessory", "Armor", "Consumable", "Tool", "Weapon"];
 
@@ -25,7 +25,7 @@ export default function AddItem({
   modifiers,
   title,
 }) {
-  const itemModifiers = modifiers.filter(mod => mod.source === title);
+  const itemModifiers = modifiers.filter((mod) => mod.source === title);
   initialValues.modifiers = itemModifiers;
 
   const armorFields = () => {
@@ -62,7 +62,7 @@ export default function AddItem({
         <DialogTitle>{title}</DialogTitle>
         <Formik
           initialValues={initialValues}
-          onSubmit={values => {
+          onSubmit={(values) => {
             handleClose();
             onAdd({ ...values }, values.modifiers);
           }}
@@ -78,7 +78,7 @@ export default function AddItem({
                   label="Item Type"
                   select
                 >
-                  {itemTypes.map(type => (
+                  {itemTypes.map((type) => (
                     <MenuItem key={type} value={type}>
                       {type}
                     </MenuItem>
@@ -109,11 +109,8 @@ export default function AddItem({
                               select
                               style={{ width: "33%" }}
                             >
-                              {abilities.map(ability => (
-                                <MenuItem
-                                  key={ability.name}
-                                  value={ability.name}
-                                >
+                              {Object.values(abilities).map((ability) => (
+                                <MenuItem key={ability.key} value={ability.key}>
                                   {ability.label}
                                 </MenuItem>
                               ))}
@@ -149,26 +146,6 @@ export default function AddItem({
                     </div>
                   )}
                 />
-                {/* <Field
-                  as={TextField}
-                  fullWidth
-                  name="modTarget"
-                  label="Modifier Target"
-                  select
-                >
-                  {abilities.map(ability => (
-                    <MenuItem key={ability.name} value={ability.name}>
-                      {ability.label}
-                    </MenuItem>
-                  ))}
-                </Field>
-                <Field
-                  as={TextField}
-                  fullWidth
-                  name="modValue"
-                  label="Modifier Value"
-                  type="number"
-                /> */}
               </DialogContent>
               <DialogActions>
                 {onDelete ? <Button onClick={onDelete}>Delete</Button> : null}
