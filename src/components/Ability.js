@@ -1,7 +1,6 @@
 import React from "react";
 import Popover from "@material-ui/core/Popover";
 import { getDisplayAbilityModifier } from "../utils";
-import Stat from "./Stat";
 import { hasModifier } from "../utils";
 import Typography from "@material-ui/core/Typography";
 import { getStringNumber } from "../utils";
@@ -10,7 +9,7 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
 export default function Ability(props) {
-  const { base, edit, index, name, modifiers, setAbilityScore } = props;
+  const { base, edit, name, modifiers, setAbilityScore } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -50,7 +49,9 @@ export default function Ability(props) {
           onClick={handleClick}
           style={{ display: "flex", flexDirection: "column" }}
         >
-          <header style={{ textAlign: "center" }}>{name}</header>
+          <header style={{ textAlign: "center", textTransform: "capitalize" }}>
+            {name}
+          </header>
           <div style={{ display: "flex" }}>
             <IconButton onClick={handleSubtract} size="small">
               <RemoveIcon />
@@ -67,7 +68,11 @@ export default function Ability(props) {
         <>
           <div className="stat" onClick={handleClick}>
             <div>
-              <header style={{ textAlign: "center" }}>{name}</header>
+              <header
+                style={{ textAlign: "center", textTransform: "capitalize" }}
+              >
+                {name}
+              </header>
               <div style={{ fontWeight: "bold", textAlign: "center" }}>
                 {edit ? base : getDisplayAbilityModifier(total)}
               </div>

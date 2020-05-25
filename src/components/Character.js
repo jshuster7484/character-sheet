@@ -1,10 +1,10 @@
-import React from "react";
-import Ability from "./Ability";
-import * as abilities from "../data/abilities";
+import React, { useContext } from "react";
+import AppContext from "../context/AppContext";
 
-export default function Character(props) {
-  const { character } = props;
-  const { name, race, characterClass } = character;
+export default function Character() {
+  const context = useContext(AppContext);
+  const { state } = context;
+  const { name, race, characterClass } = state;
 
   return (
     <section className="character">

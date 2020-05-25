@@ -1,11 +1,12 @@
-import React from "react";
-import InfoTip from "./InfoTip";
+import React, { useContext } from "react";
+import AppContext from "../context/AppContext";
 import Stat from "./Stat";
 import Weapon from "./Weapon";
 
-export default function Offense(props) {
-  const { character } = props;
-  const { initiative, speed, cmb } = character;
+export default function Offense() {
+  const context = useContext(AppContext);
+  const { state } = context;
+  const { initiative, speed, cmb } = state;
   return (
     <section className="offense">
       <h1>Offense</h1>

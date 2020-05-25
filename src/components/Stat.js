@@ -1,10 +1,10 @@
 import React from "react";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
-import { getStringNumber, hasModifier } from "../utils";
+import { hasModifier } from "../utils";
 
 const Stat = (props) => {
-  const { base, label, value, modifiers } = props;
+  const { label, value, modifiers } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {

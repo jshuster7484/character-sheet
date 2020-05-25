@@ -6,7 +6,7 @@ export default function Item({ onAdd, onDelete, item, modifiers }) {
   const [open, setOpen] = React.useState(false);
 
   const handleDelete = () => {
-    onDelete(item.name);
+    onDelete(item.name, item);
   };
 
   const handleClose = () => {

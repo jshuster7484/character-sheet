@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Dialog,
@@ -64,13 +64,19 @@ export default function AddItem({
           initialValues={initialValues}
           onSubmit={(values) => {
             handleClose();
-            onAdd({ ...values }, values.modifiers);
+            onAdd(`inventory.${values.name}`, { ...values });
           }}
         >
           {({ values, isSubmitting }) => (
             <Form>
               <DialogContent>
-                <Field as={TextField} fullWidth name="name" label="Name" />
+                <Field
+                  as={TextField}
+                  autoFocus
+                  fullWidth
+                  name="name"
+                  label="Name"
+                />
                 <Field
                   as={TextField}
                   fullWidth

@@ -1,15 +1,8 @@
 import React from "react";
 import Stat from "./Stat";
 
-const Weapon = props => {
-  const {
-    attackBonus,
-    criticalRange,
-    damageBonus,
-    damageDie,
-    damageType,
-    name,
-  } = props;
+const Weapon = (props) => {
+  const { attackBonus, criticalRange, damageDie, name } = props;
 
   return (
     <div
