@@ -29,42 +29,41 @@ const App = () => {
   };
 
   return (
-    <Router basename={process.env.PUBLIC_URL}>
-      <Switch>
-        <Route exact path="/">
-          <Container className="App">
-            <main>
-              <header
-                style={{
-                  display: "flex",
-                  alignItems: "baseline",
-                  justifyContent: "space-between",
-                }}
-              >
-                <h1>Character Sheet</h1>
-                <Button onClick={handleEditToggle} style={{ height: "auto" }}>
-                  {edit ? "View Character" : "Edit Character"}
-                </Button>
-              </header>
-              <div>
-                <Character />
-                <Abilities />
-                <Defense />
-                <Offense />
-                <Inventory />
-                {/* <Skills /> */}
-              </div>
-            </main>
-          </Container>
-        </Route>
-        <Route path="/isi">
-          <Isi />
-        </Route>
-        <Route path="/zara">
-          <Zara />
-        </Route>
-      </Switch>
-    </Router>
+    <Switch>
+      <Route exact path="/">
+        <Container className="App">
+          <main>
+            <header
+              style={{
+                display: "flex",
+                alignItems: "baseline",
+                justifyContent: "space-between",
+              }}
+            >
+              <h1>Character Sheet</h1>
+              <h2>{process.env.PUBLIC_URL}</h2>
+              <Button onClick={handleEditToggle} style={{ height: "auto" }}>
+                {edit ? "View Character" : "Edit Character"}
+              </Button>
+            </header>
+            <div>
+              <Character />
+              <Abilities />
+              <Defense />
+              <Offense />
+              <Inventory />
+              {/* <Skills /> */}
+            </div>
+          </main>
+        </Container>
+      </Route>
+      <Route path="/isi">
+        <Isi />
+      </Route>
+      <Route path="/zara">
+        <Zara />
+      </Route>
+    </Switch>
   );
 };
 
