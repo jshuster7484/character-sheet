@@ -15,7 +15,7 @@ export default function Offense() {
         <Stat label="Speed" value={speed} />
         <Stat label="CMB" value={cmb} />
       </div>
-      <h1>Attacks</h1>
+      {/* <h1>Attacks</h1>
       <Weapon
         attackBonus="+4"
         criticalRange="x2"
@@ -31,7 +31,7 @@ export default function Offense() {
         damageBonus={1}
         damageType="Slashing"
         name="Longsword +1"
-      />
+      /> */}
     </section>
   );
 }
