@@ -29,23 +29,24 @@ const Isi = () => {
           {
             name: "One Handed",
             bonus: bab + 7,
-            damage: "2d8 + 5",
+            damage: "1d8 + 7",
           },
           {
             name: "Two Handed",
             bonus: bab + 7,
-            damage: "2d8 + 7",
+            damage: "1d8 + 9",
           },
           {
             name: "Power Attack",
             bonus: bab + 5,
-            damage: "2d8 + 11",
+            damage: "1d8 + 11",
           },
           {
             name: "Two Handed Power Attack",
             bonus: bab + 5,
-            damage: "2d8 + 13",
+            damage: "1d8 + 15",
           },
+          { name: "Bonus Damage vs. Evil", damage: "+1d8" },
         ]}
         criticalRange="19-20/x2"
       />

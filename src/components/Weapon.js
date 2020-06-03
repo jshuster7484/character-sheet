@@ -33,7 +33,12 @@ const Weapon = (props) => {
             }}
           >
             <span>{attack.name}</span>
-            <Stat label="Attack Bonus" value={getStringNumber(attack.bonus)} />
+            {attack.bonus != null && (
+              <Stat
+                label="Attack Bonus"
+                value={getStringNumber(attack.bonus)}
+              />
+            )}
             <Stat label="Damage" value={attack.damage} />
             {attack.range && <Stat label="Range" value={attack?.range} />}
           </div>

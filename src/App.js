@@ -12,6 +12,7 @@ import Offense from "./components/Offense";
 import Skills from "./components/Skills";
 
 import Isi from "./tests/Isi";
+import Radaba from "./tests/Radaba";
 import Zara from "./tests/Zara";
 
 const App = () => {
@@ -33,6 +34,9 @@ const App = () => {
       <ul>
         <li>
           <Link to="/isi">Isi</Link>
+        </li>
+        <li>
+          <Link to="/radaba">Radaba</Link>
         </li>
         <li>
           <Link to="/zara">Zara</Link>
@@ -66,6 +70,9 @@ const App = () => {
         </Route>
         <Route path="/isi">
           <Isi />
+        </Route>
+        <Route path="/radaba">
+          <Radaba />
         </Route>
         <Route path="/zara">
           <Zara />
