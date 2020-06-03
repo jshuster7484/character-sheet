@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import { Button, Container } from "@material-ui/core";
 
 import "./App.css";
@@ -29,9 +29,17 @@ const App = () => {
   };
 
   return (
-    <Switch>
-      <Route exact path="/">
-        <Container className="App">
+    <Container className="App">
+      <ul>
+        <li>
+          <Link to="/isi">Isi</Link>
+        </li>
+        <li>
+          <Link to="/zara">Zara</Link>
+        </li>
+      </ul>
+      <Switch>
+        <Route exact path="/">
           <main>
             <header
               style={{
@@ -55,15 +63,15 @@ const App = () => {
               {/* <Skills /> */}
             </div>
           </main>
-        </Container>
-      </Route>
-      <Route path="/isi">
-        <Isi />
-      </Route>
-      <Route path="/zara">
-        <Zara />
-      </Route>
-    </Switch>
+        </Route>
+        <Route path="/isi">
+          <Isi />
+        </Route>
+        <Route path="/zara">
+          <Zara />
+        </Route>
+      </Switch>
+    </Container>
   );
 };
 
