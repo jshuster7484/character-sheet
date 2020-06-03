@@ -45,7 +45,7 @@ const App = () => {
           <Defense />
           <Offense />
           <Inventory />
-          <Skills />
+          {/* <Skills /> */}
         </div>
       </main>
     </Container>

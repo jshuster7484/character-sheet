@@ -5,10 +5,10 @@ import Ability from "./Ability";
 const Abilities = (props) => {
   const context = useContext(AppContext);
   const { state, dispatch } = context;
-  const { abilityScores, edit } = state;
+  const { abilities, edit } = state;
 
   const onChange = (key, value) => {
-    dispatch({ type: "on_input", payload: { key, value } });
+    dispatch({ type: "set_ability_score", payload: { key, value } });
     dispatch({ type: "save_data" });
   };
 
@@ -16,11 +16,11 @@ const Abilities = (props) => {
     return (
       <Ability
         edit={edit}
+        effects={abilities[key].effects}
         name={key}
-        base={abilityScores[key]}
-        // modifiers={modifiers.filter((mod) => mod.target === key)}
-        modifiers={[]}
-        setAbilityScore={(value) => onChange(`abilityScores.${key}`, value)}
+        base={abilities[key].score}
+        modifier={abilities[key].modifier}
+        setAbilityScore={(value) => onChange(`abilities.${key}`, value)}
       />
     );
   };

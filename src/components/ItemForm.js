@@ -22,11 +22,11 @@ export default function AddItem({
   handleClose,
   open,
   initialValues,
-  modifiers,
+  effects,
   title,
 }) {
-  const itemModifiers = modifiers.filter((mod) => mod.source === title);
-  initialValues.modifiers = itemModifiers;
+  const itemEffects = effects.filter((effect) => effect.source === title);
+  initialValues.effects = itemEffects;
 
   const armorFields = () => {
     return (
@@ -92,14 +92,14 @@ export default function AddItem({
                 </Field>
                 {values.type === "Armor" ? armorFields() : null}
                 <Typography style={{ marginTop: "32px" }} variant="h6">
-                  Modifiers
+                  Effects
                 </Typography>
                 <FieldArray
-                  name="modifiers"
+                  name="effects"
                   render={({ insert, remove, push }) => (
                     <div>
-                      {values.modifiers.length > 0 &&
-                        values.modifiers.map((mod, index) => (
+                      {values.effects.length > 0 &&
+                        values.effects.map((mod, index) => (
                           <div
                             style={{
                               alignItems: "baseline",
@@ -110,8 +110,8 @@ export default function AddItem({
                           >
                             <Field
                               as={TextField}
-                              name={`modifiers.${index}.target`}
-                              label="Modifier Target"
+                              name={`effects.${index}.target`}
+                              label="Effect Target"
                               select
                               style={{ width: "33%" }}
                             >
@@ -123,8 +123,8 @@ export default function AddItem({
                             </Field>
                             <Field
                               as={TextField}
-                              label="Modifier Value"
-                              name={`modifiers.${index}.value`}
+                              label="Effect Value"
+                              name={`effects.${index}.value`}
                               type="number"
                             />
                             <IconButton
@@ -147,7 +147,7 @@ export default function AddItem({
                           })
                         }
                       >
-                        Add Modifier
+                        Add Effect
                       </Button>
                     </div>
                   )}

@@ -10,7 +10,7 @@ const newItem = {
   armorBonus: "",
   maxDexBonus: "",
   spellFailure: "",
-  modifiers: [],
+  effects: [],
 };
 
 export default function Inventory(props) {
@@ -62,7 +62,7 @@ export default function Inventory(props) {
             // onAdd={onUpdate}
             onAdd={onAdd}
             item={item}
-            modifiers={[]}
+            effects={item.effects}
           />
         ))}
       </div>
@@ -73,7 +73,7 @@ export default function Inventory(props) {
         open={open}
         handleOpen={handleOpen}
         handleClose={handleClose}
-        modifiers={[]}
+        effects={[]}
         title="New Item"
       />
     </section>

@@ -11,7 +11,7 @@ function getAbilityModifier(abilityScore) {
 }
 
 function getDisplayAbilityModifier(abilityScore) {
-  return getStringNumber(getAbilityModifier(abilityScore));
+  return getStringNumber(abilityScore);
 }
 
 export const getAbilityScore = (ability, character, modifiers) => {

@@ -1,7 +1,6 @@
 import React from "react";
 import Popover from "@material-ui/core/Popover";
 import { getDisplayAbilityModifier } from "../utils";
-import { hasModifier } from "../utils";
 import Typography from "@material-ui/core/Typography";
 import { getStringNumber } from "../utils";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,7 +8,7 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
 export default function Ability(props) {
-  const { base, edit, name, modifiers, setAbilityScore } = props;
+  const { base, edit, effects, name, modifier, setAbilityScore } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -23,13 +22,6 @@ export default function Ability(props) {
   };
 
   const open = Boolean(anchorEl);
-
-  const total = modifiers
-    ? parseInt(base) +
-      modifiers.reduce(function (prev, mod) {
-        return prev + parseInt(mod.value);
-      }, 0)
-    : parseInt(base);
 
   const handleAdd = () => {
     setAbilityScore(base + 1);
@@ -74,7 +66,7 @@ export default function Ability(props) {
                 {name}
               </header>
               <div style={{ fontWeight: "bold", textAlign: "center" }}>
-                {edit ? base : getDisplayAbilityModifier(total)}
+                {edit ? base : getDisplayAbilityModifier(modifier)}
               </div>
             </div>
           </div>
@@ -100,19 +92,19 @@ export default function Ability(props) {
                 <Typography>Base</Typography>
                 <Typography style={{ marginLeft: "1rem" }}>{base}</Typography>
               </div>
-              {hasModifier(modifiers) ? (
+              {effects.length > 0 ? (
                 <>
-                  {modifiers.map((mod) => (
+                  {effects.map((effect) => (
                     <div
-                      key={mod.source}
+                      key={effect.source}
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
                       }}
                     >
-                      <Typography>{mod.source}</Typography>
+                      <Typography>{effect.source}</Typography>
                       <Typography style={{ marginLeft: "1rem" }}>
-                        {getStringNumber(parseInt(mod.value))}
+                        {getStringNumber(parseInt(effect.value))}
                       </Typography>
                     </div>
                   ))}
