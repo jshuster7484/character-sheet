@@ -1,7 +1,7 @@
 import React from "react";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
-import { hasModifier } from "../utils";
+import { hasModifier, getStringNumber } from "../utils";
 
 const Stat = (props) => {
   const { label, value, modifiers } = props;
@@ -44,12 +44,12 @@ const Stat = (props) => {
               <>
                 {modifiers.map((mod) => (
                   <div
-                    key={mod.source}
+                    key={mod.label}
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <Typography>{mod.label}</Typography>
+                    <Typography>{mod.source}</Typography>
                     <Typography style={{ marginLeft: "1rem" }}>
-                      {mod.value}
+                      {getStringNumber(mod.value)}
                     </Typography>
                   </div>
                 ))}

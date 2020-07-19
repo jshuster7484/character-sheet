@@ -7,11 +7,11 @@ const Radaba = () => {
     <Container>
       <h1>Radaba</h1>
       <Weapon
-        name="Tail Whip"
-        criticalRange="None"
-        attacks={[
-          { name: "Attack", bonus: 0, damage: "It's not very effective" },
-        ]}
+        name="Bite"
+        attackBonusModifiers={[]}
+        damageBonusModifiers={[]}
+        damageDie="1d6"
+        criticalRange="x2"
       />
     </Container>
   );

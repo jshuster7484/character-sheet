@@ -57,9 +57,7 @@ export default function Inventory(props) {
         {inventory.sort().map((item) => (
           <Item
             key={item.name}
-            handleClose={handleClose}
             onDelete={onDelete}
-            // onAdd={onUpdate}
             onAdd={onAdd}
             item={item}
             effects={item.effects}

@@ -104,7 +104,21 @@ const reducer = (state, { type, payload }) => {
     case "delete_item":
       items = get({ ...state }, "inventory", []);
       remove(items, (x) => x.name === payload.key); // make this value based?
+
       // Re-calculate ability modifiers
+      // if (payload.value.effects) {
+      //   abilities = get({ ...state }, "abilities", []);
+      //   payload.value.effects.map((effect) => {
+      //     remove(
+      //       `abilities${effect.target}.effects`,
+      //       (x) => x.source === payload.key,
+      //     );
+      //     set({ ...state }, `abilities.${effect.target}`, strength);
+
+      //     calculateAbility(state, `abilities.${effect.target}`, null, effect);
+      //   });
+      // }
+
       return set({ ...state }, "inventory", items);
     case "set_ability_score":
       return calculateAbility(state, payload.key, payload.value);

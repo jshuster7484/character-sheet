@@ -11,6 +11,7 @@ import Inventory from "./components/Inventory";
 import Offense from "./components/Offense";
 import Skills from "./components/Skills";
 
+import Ash from "./tests/Ash";
 import Isi from "./tests/Isi";
 import Radaba from "./tests/Radaba";
 import Zara from "./tests/Zara";
@@ -32,6 +33,9 @@ const App = () => {
   return (
     <Container className="App">
       <ul>
+        <li>
+          <Link to="/ash">Ash</Link>
+        </li>
         <li>
           <Link to="/isi">Isi</Link>
         </li>
@@ -67,6 +71,9 @@ const App = () => {
               {/* <Skills /> */}
             </div>
           </main>
+        </Route>
+        <Route path="/ash">
+          <Ash />
         </Route>
         <Route path="/isi">
           <Isi />

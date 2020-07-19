@@ -1,10 +1,33 @@
 import React from "react";
 import Stat from "./Stat";
-import { getStringNumber } from "../utils";
+import Sum from "./Sum";
 
 const Weapon = (props) => {
-  // const { attackBonus, criticalRange, damage, name } = props;
-  const { name, attacks, attackBonus, damage, criticalRange, range } = props;
+  const {
+    name,
+    attackBonusModifiers,
+    damageBonusModifiers,
+    damageDie,
+    enchantment,
+    criticalRange,
+    range,
+  } = props;
+
+  if (enchantment === "masterwork") {
+    attackBonusModifiers.push({
+      source: "Masterwork Weapon",
+      value: 1,
+    });
+  } else if (enchantment) {
+    attackBonusModifiers.push({
+      source: `+${enchantment} Enchantment`,
+      value: enchantment,
+    });
+    damageBonusModifiers.push({
+      source: `+${enchantment} Enchantment`,
+      value: enchantment,
+    });
+  }
 
   return (
     <div
@@ -14,35 +37,21 @@ const Weapon = (props) => {
         marginBottom: "1rem",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <h4>{name}</h4>
-        <Stat label="Critical Range" value={criticalRange} />
-      </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        {attacks.map((attack) => (
-          <div
-            style={{
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <span>{attack.name}</span>
-            {attack.bonus != null && (
-              <Stat
-                label="Attack Bonus"
-                value={getStringNumber(attack.bonus)}
-              />
-            )}
-            <Stat label="Damage" value={attack.damage} />
-            {attack.range && <Stat label="Range" value={attack?.range} />}
-          </div>
-        ))}
+        <div
+          style={{
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <h4>{name}</h4>
+          <Sum label="Attack Bonus" modifiers={attackBonusModifiers} />
+          <Stat label="Damage Die" value={damageDie} />
+          <Sum label="Damage Bonus" modifiers={damageBonusModifiers} />
+          {range && <Stat label="Range" value={range} />}
+          <Stat label="Critical Range" value={criticalRange} />
+        </div>
       </div>
     </div>
   );
