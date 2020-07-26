@@ -1,11 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import AppContext from "../context/AppContext";
 import Ability from "./Ability";
+import EditIcon from "@material-ui/icons/Edit";
+import IconButton from "@material-ui/core/IconButton";
 
 const Abilities = (props) => {
+  const [edit, setEdit] = useState(false);
   const context = useContext(AppContext);
   const { state, dispatch } = context;
-  const { abilities, edit } = state;
+  const { abilities } = state;
+
+  const toggleEdit = () => {
+    setEdit(!edit);
+  };
 
   const onChange = (key, value) => {
     dispatch({ type: "set_ability_score", payload: { key, value } });
@@ -27,7 +34,12 @@ const Abilities = (props) => {
 
   return (
     <section>
-      <h1>Ability Scores</h1>
+      <header style={{ alignItems: "center", display: "flex" }}>
+        <h1>Ability Scores</h1>
+        <IconButton onClick={toggleEdit}>
+          <EditIcon />
+        </IconButton>
+      </header>
       <div style={{ display: "flex" }}>
         {renderAbility("strength")}
         {renderAbility("dexterity")}

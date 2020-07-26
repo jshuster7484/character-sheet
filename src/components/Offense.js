@@ -24,24 +24,6 @@ export default function Offense() {
         <Stat label="CMB" value={cmb} />
       </div>
       <Button onClick={handleOpen}>Add Weapon</Button>
-      {/* <WeaponForm /> */}
-      {/* <h1>Attacks</h1>
-      <Weapon
-        attackBonus="+4"
-        criticalRange="x2"
-        damageBonus={1}
-        damageDie="1d3"
-        damageType="Bludgeoning"
-        name="Unarmed Strike"
-      />
-      <Weapon
-        attackBonus="+10"
-        criticalRange="19-20/x2"
-        damageDie="1d8"
-        damageBonus={1}
-        damageType="Slashing"
-        name="Longsword +1"
-      /> */}
     </section>
   );
 }

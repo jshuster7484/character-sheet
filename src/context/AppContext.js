@@ -6,6 +6,7 @@ import { skillsArray } from "../data/skills";
 import { getAbilityModifier } from "../utils";
 
 const initialState = {
+  name: "My Character",
   abilities: {
     strength: {
       score: 10,
@@ -38,22 +39,8 @@ const initialState = {
       effects: [],
     },
   },
-  armorClass: 0,
-  character: {},
-  characterClass: "Fighter",
-  cmb: 0,
-  edit: false,
-  fortitude: 0,
-  initiative: 0,
-  inventory: [],
-  modifiers: [],
-  name: "My Character",
-  race: "Human",
-  reflex: 0,
-  skills: skillsArray,
-  skillFilter: null,
-  speed: 30,
-  will: 0,
+  baseAttackBonus: 0,
+  weapons: [],
 };
 
 const calculateAbility = (state, abilityPath, abilityScore, effect) => {
@@ -89,43 +76,13 @@ const reducer = (state, { type, payload }) => {
     case "on_input":
       return set({ ...state }, payload.key, payload.value);
     case "add_item":
-      items = get({ ...state }, "inventory", []);
+      items = get({ ...state }, `${payload.key}`, []);
       items.push(payload.value);
-
-      // TODO: Functionalize
-      // Re-calculate ability modifiers
-      if (payload.value.effects) {
-        payload.value.effects.map((effect) => {
-          calculateAbility(state, `abilities.${effect.target}`, null, effect);
-        });
-      }
-
-      return set({ ...state }, "inventory", items);
+      return set({ ...state }, `${payload.key}`, items);
     case "delete_item":
-      items = get({ ...state }, "inventory", []);
-      remove(items, (x) => x.name === payload.key); // make this value based?
-
-      // Re-calculate ability modifiers
-      // if (payload.value.effects) {
-      //   abilities = get({ ...state }, "abilities", []);
-      //   payload.value.effects.map((effect) => {
-      //     remove(
-      //       `abilities${effect.target}.effects`,
-      //       (x) => x.source === payload.key,
-      //     );
-      //     set({ ...state }, `abilities.${effect.target}`, strength);
-
-      //     calculateAbility(state, `abilities.${effect.target}`, null, effect);
-      //   });
-      // }
-
-      return set({ ...state }, "inventory", items);
-    case "set_ability_score":
-      return calculateAbility(state, payload.key, payload.value);
-    case "edit_skill":
-      skills = get({ ...state }, "skills", []);
-      skills[payload.key].ranks = payload.value;
-      return set({ ...state }, "skills", skills);
+      items = get({ ...state }, `${payload.key}`, []);
+      remove(items, (x, index) => index === payload.value);
+      return set({ ...state }, `${payload.key}`, items);
     case "save_data":
       localStorage.setItem("state", JSON.stringify(state));
       return state;
@@ -137,6 +94,15 @@ const reducer = (state, { type, payload }) => {
         ...payload,
         edit: false,
       };
+
+    // Take another look at these later
+    case "set_ability_score":
+      return calculateAbility(state, payload.key, payload.value);
+    case "edit_skill":
+      skills = get({ ...state }, "skills", []);
+      skills[payload.key].ranks = payload.value;
+      return set({ ...state }, "skills", skills);
+
     default:
       return state;
   }
