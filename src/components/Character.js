@@ -4,26 +4,22 @@ import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
 
-export default function Character() {
+export default function Character({ handleChange }) {
   const [edit, setEdit] = useState(false);
   const context = useContext(AppContext);
-  const { state, dispatch } = context;
-  const { name, baseAttackBonus } = state;
-
-  const handleChange = (key, value) => {
-    dispatch({
-      type: "on_input",
-      payload: {
-        key,
-        value,
-      },
-    });
-    dispatch({ type: "save_data" });
-  };
+  const { state } = context;
+  const { activeCharacterIndex, characters } = state;
+  const { name, baseAttackBonus } = characters[activeCharacterIndex];
 
   return (
     <section className="character">
-      <header style={{ alignItems: "center", display: "flex" }}>
+      <header
+        style={{
+          alignItems: "center",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         {!edit && <h1>{name}</h1>}
         {edit && (
           <TextField

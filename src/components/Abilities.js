@@ -8,14 +8,18 @@ const Abilities = (props) => {
   const [edit, setEdit] = useState(false);
   const context = useContext(AppContext);
   const { state, dispatch } = context;
-  const { abilities } = state;
+  const { activeCharacterIndex, characters } = state;
+  const { abilities } = characters[activeCharacterIndex];
 
   const toggleEdit = () => {
     setEdit(!edit);
   };
 
-  const onChange = (key, value) => {
-    dispatch({ type: "set_ability_score", payload: { key, value } });
+  const onChange = (path, value) => {
+    dispatch({
+      type: "set_ability_score",
+      payload: { key: `characters[${activeCharacterIndex}].${path}`, value },
+    });
     dispatch({ type: "save_data" });
   };
 
@@ -34,7 +38,13 @@ const Abilities = (props) => {
 
   return (
     <section>
-      <header style={{ alignItems: "center", display: "flex" }}>
+      <header
+        style={{
+          alignItems: "center",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         <h1>Ability Scores</h1>
         <IconButton onClick={toggleEdit}>
           <EditIcon />

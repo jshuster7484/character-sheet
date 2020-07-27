@@ -1,29 +1,19 @@
 import React, { useContext } from "react";
-import AppContext from "../context/AppContext";
+import AppContext from "../../context/AppContext";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
 
-const Bonus = ({ bonus, identifier, index }) => {
+const Bonus = ({ bonus, handleChange, identifier, index }) => {
   const context = useContext(AppContext);
-  const { dispatch } = context;
-
-  const handleChange = (key, value) => {
-    dispatch({
-      type: "on_input",
-      payload: {
-        key,
-        value,
-      },
-    });
-    dispatch({ type: "save_data" });
-  };
+  const { dispatch, state } = context;
+  const { activeCharacterIndex } = state;
 
   const handleDelete = () => {
     dispatch({
       type: "delete_item",
       payload: {
-        key: identifier,
+        key: `characters[${activeCharacterIndex}].${identifier}`,
         value: index,
       },
     });

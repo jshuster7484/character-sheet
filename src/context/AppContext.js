@@ -5,7 +5,7 @@ import remove from "lodash/remove";
 import { skillsArray } from "../data/skills";
 import { getAbilityModifier } from "../utils";
 
-const initialState = {
+export const newCharacter = {
   name: "My Character",
   abilities: {
     strength: {
@@ -41,6 +41,11 @@ const initialState = {
   },
   baseAttackBonus: 0,
   weapons: [],
+};
+
+const initialState = {
+  activeCharacterIndex: 0,
+  characters: [newCharacter],
 };
 
 const calculateAbility = (state, abilityPath, abilityScore, effect) => {
