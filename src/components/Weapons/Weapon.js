@@ -2,120 +2,98 @@ import React, { useContext } from "react";
 import AppContext from "../../context/AppContext";
 import EditWeapon from "./EditWeapon";
 import Stat from "../Stat";
-import Sum from "../Sum";
-import IconButton from "@material-ui/core/IconButton";
-import EditIcon from "@material-ui/icons/Edit";
-import TextField from "@material-ui/core/TextField";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const Weapon = (props) => {
   const context = useContext(AppContext);
-  const { state, dispatch } = context;
+  const { state } = context;
   const { characters, activeCharacterIndex } = state;
   const { abilities, baseAttackBonus } = characters[activeCharacterIndex];
   const { index, handleChange, weapon } = props;
 
   const identifier = `weapons[${index}]`;
 
-  const attackBonusArray = () => {
-    return [
-      {
-        source: "Base Attack Bonus",
-        value: baseAttackBonus,
-      },
-      {
-        source: weapon.attackAbility,
-        value: abilities[weapon.attackAbility.toLowerCase()].modifier,
-      },
-    ].concat(weapon.attackBonus);
+  const attackBonus = () => {
+    return (
+      baseAttackBonus +
+      abilities[weapon.attackAbility.toLowerCase()].modifier +
+      weapon.attackBonus.reduce(
+        (accumulator, bonus) => accumulator + bonus.value,
+        0,
+      )
+    );
   };
 
-  const damageBonusArray = () => {
-    return [
-      {
-        source: weapon.damageAbility,
-        value: abilities[weapon.damageAbility.toLowerCase()].modifier,
-      },
-    ].concat(weapon.damageBonus);
+  const damageBonus = () => {
+    return (
+      abilities[weapon.damageAbility.toLowerCase()].modifier +
+      weapon.damageBonus.reduce(
+        (accumulator, bonus) => accumulator + bonus.value,
+        0,
+      )
+    );
   };
 
   return (
-    <div
-      style={{
-        border: "1px solid lightgray",
-        padding: "1rem",
-        marginBottom: "1rem",
-      }}
-    >
-      <div
-        style={{
-          alignItems: "center",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", width: "50%" }}>
-          {!weapon.edit ? (
-            <>
-              <strong>{weapon.name}</strong>
-              {weapon.criticalRange && (
-                <em style={{ fontSize: "12px" }}>
-                  Critical Range: {weapon.criticalRange}
-                </em>
-              )}
-            </>
-          ) : (
-            <>
-              <TextField
-                label="Weapon Name"
-                onChange={(e) =>
-                  handleChange(`${identifier}.name`, e.target.value)
-                }
-                style={{ fontWeight: "bold" }}
-                value={weapon.name}
+    <Accordion style={{ marginBottom: "1rem" }}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+          <strong>{weapon.name}</strong>
+          <em style={{ fontSize: "12px" }}>
+            Critical Range: {weapon.criticalRange}
+          </em>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr 1fr",
+              marginTop: "1rem",
+            }}
+          >
+            <Stat
+              handleClick={(event) => {
+                event.stopPropagation();
+              }}
+              label="Attack Bonus"
+              value={attackBonus()}
+            />
+            <Stat
+              handleClick={(event) => {
+                event.stopPropagation();
+              }}
+              label="Damage Die"
+              value={weapon.damageDie}
+            />
+            <Stat
+              handleClick={(event) => {
+                event.stopPropagation();
+              }}
+              label="Damage Bonus"
+              value={damageBonus()}
+            />
+            {weapon.extraDamage.name && (
+              <Stat
+                handleClick={(event) => {
+                  event.stopPropagation();
+                }}
+                label={weapon.extraDamage.name}
+                value={weapon.extraDamage.value}
               />
-              <TextField
-                label="Critical Range"
-                placeholder="x2"
-                onChange={(e) =>
-                  handleChange(`${identifier}.criticalRange`, e.target.value)
-                }
-                value={weapon.criticalRange}
-              />
-            </>
-          )}
+            )}
+          </div>
         </div>
-        <IconButton
-          onClick={(e) => handleChange(`${identifier}.edit`, !weapon.edit)}
-        >
-          <EditIcon />
-        </IconButton>
-      </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr 1fr",
-          marginTop: "1rem",
-        }}
-      >
-        <Sum label="Attack Bonus" modifiers={attackBonusArray()} />
-        <Stat label="Damage Die" value={weapon.damageDie} />
-        <Sum label="Damage Bonus" modifiers={damageBonusArray()} />
-        {weapon.extraDamage.name && (
-          <Stat
-            label={weapon.extraDamage.name}
-            value={weapon.extraDamage.value}
-          />
-        )}
-      </div>
-      {weapon.edit && (
+      </AccordionSummary>
+      <AccordionDetails>
         <EditWeapon
           index={index}
           handleChange={handleChange}
           identifier={identifier}
           weapon={weapon}
         />
-      )}
-    </div>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

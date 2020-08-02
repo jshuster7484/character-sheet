@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import AppContext from "../../context/AppContext";
-import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import AddIcon from "@material-ui/icons/Add";
+
 import Weapon from "./Weapon";
 
 const Weapons = ({ handleChange }) => {
@@ -18,7 +20,6 @@ const Weapons = ({ handleChange }) => {
     extraDamage: { name: "", value: "" },
     attackAbility: "Strength",
     damageAbility: "Strength",
-    edit: false,
   };
 
   const addWeapon = () => {
@@ -34,11 +35,20 @@ const Weapons = ({ handleChange }) => {
 
   return (
     <section>
-      <h2>Weapons</h2>
+      <header style={{ alignItems: "center", display: "flex" }}>
+        <h2>Weapons</h2>
+        <IconButton onClick={addWeapon}>
+          <AddIcon />
+        </IconButton>
+      </header>
       {weapons.map((weapon, index) => (
-        <Weapon index={index} handleChange={handleChange} weapon={weapon} />
+        <Weapon
+          key={index}
+          index={index}
+          handleChange={handleChange}
+          weapon={weapon}
+        />
       ))}
-      <Button onClick={addWeapon}>Add Weapon</Button>
     </section>
   );
 };

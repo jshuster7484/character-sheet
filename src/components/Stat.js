@@ -1,64 +1,13 @@
 import React from "react";
-import Popover from "@material-ui/core/Popover";
-import Typography from "@material-ui/core/Typography";
-import { hasModifier, getStringNumber } from "../utils";
 
 const Stat = (props) => {
-  const { label, value, modifiers } = props;
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
+  const { handleClick, label, value } = props;
 
   return (
-    <>
-      <div className="stat" onClick={handleClick}>
-        <div>
-          <header style={{ textAlign: "center" }}>{label}</header>
-          <div style={{ fontWeight: "bold", textAlign: "center" }}>{value}</div>
-        </div>
-      </div>
-      {hasModifier(modifiers) ? (
-        <Popover
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-        >
-          <div style={{ padding: "1rem" }}>
-            {hasModifier(modifiers) ? (
-              <>
-                {modifiers.map((mod) => (
-                  <div
-                    key={mod.label}
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <Typography>{mod.source}</Typography>
-                    <Typography style={{ marginLeft: "1rem" }}>
-                      {getStringNumber(mod.value)}
-                    </Typography>
-                  </div>
-                ))}
-              </>
-            ) : null}
-          </div>
-        </Popover>
-      ) : null}
-    </>
+    <div className="stat" onClick={handleClick}>
+      <header style={{ textAlign: "center" }}>{label}</header>
+      <div style={{ fontWeight: "bold", textAlign: "center" }}>{value}</div>
+    </div>
   );
 };
 

@@ -40,6 +40,7 @@ export const newCharacter = {
     },
   },
   baseAttackBonus: 0,
+  spells: [],
   weapons: [],
 };
 
