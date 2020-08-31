@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
 import AppContext from "../../context/AppContext";
-import IconButton from "@material-ui/core/IconButton";
-import AddIcon from "@material-ui/icons/Add";
 import Battle from "../../assets/icons8-battle-50.png";
-
 import Weapon from "./Weapon";
+import { Button } from "@material-ui/core";
 
 const Weapons = ({ handleChange }) => {
   const context = useContext(AppContext);
@@ -38,11 +36,11 @@ const Weapons = ({ handleChange }) => {
   return (
     <section>
       <header style={{ alignItems: "center", display: "flex" }}>
-        <img src={Battle} style={{ height: "32px", width: "32px" }} />
+        <img
+          src={Battle}
+          style={{ height: "32px", marginRight: "1rem", width: "32px" }}
+        />
         <h2>Weapons</h2>
-        <IconButton onClick={addWeapon}>
-          <AddIcon />
-        </IconButton>
       </header>
       {weapons.map((weapon, index) => (
         <Weapon
@@ -52,6 +50,12 @@ const Weapons = ({ handleChange }) => {
           weapon={weapon}
         />
       ))}
+      <div>
+        <Button variant="contained" style={{ marginRight: "1rem" }}>
+          Add Melee
+        </Button>
+        <Button variant="contained">Add Ranged</Button>
+      </div>
     </section>
   );
 };

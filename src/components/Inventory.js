@@ -3,6 +3,7 @@ import AppContext from "../context/AppContext";
 import Button from "@material-ui/core/Button";
 import ItemForm from "./ItemForm";
 import Item from "./Item";
+import Rucksack from "../assets/icons8-rucksack-50.png";
 
 const newItem = {
   name: "",
@@ -16,7 +17,8 @@ const newItem = {
 export default function Inventory(props) {
   const context = useContext(AppContext);
   const { state, dispatch } = context;
-  const { inventory } = state;
+  const { activeCharacterIndex, characters } = state;
+  const { items } = characters[activeCharacterIndex];
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
@@ -52,9 +54,15 @@ export default function Inventory(props) {
 
   return (
     <section className="inventory">
-      <h1>Inventory</h1>
+      <header style={{ alignItems: "center", display: "flex" }}>
+        <img
+          src={Rucksack}
+          style={{ height: "32px", marginRight: "1rem", width: "32px" }}
+        />
+        <h2>Inventory</h2>
+      </header>
       <div style={{ display: "flex" }}>
-        {inventory.sort().map((item) => (
+        {items.sort().map((item) => (
           <Item
             key={item.name}
             onDelete={onDelete}
@@ -64,7 +72,9 @@ export default function Inventory(props) {
           />
         ))}
       </div>
-      <Button onClick={handleOpen}>Add New Item</Button>
+      <Button onClick={handleOpen} variant="contained">
+        Add Item
+      </Button>
       <ItemForm
         initialValues={newItem}
         onAdd={onAdd}
