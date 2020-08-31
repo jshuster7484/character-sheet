@@ -63,8 +63,8 @@ const EditWeapon = ({ identifier, index, handleChange, weapon }) => {
   };
 
   return (
-    <div style={{ flexDirection: "row" }}>
-      <div style={{ display: "flex", flexDirection: "column", margin: "1rem" }}>
+    <div style={{ flexDirection: "row", margin: "1rem" }}>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <TextField
           label="Weapon Name"
           onChange={(e) => handleChange(`${identifier}.name`, e.target.value)}
@@ -186,7 +186,7 @@ const EditWeapon = ({ identifier, index, handleChange, weapon }) => {
         <Button
           color="secondary"
           onClick={deleteWeapon}
-          style={{ gridColumn: 2, justifySelf: "flex-end" }}
+          style={{ gridColumn: 1, justifySelf: "flex-start" }}
           variant="contained"
         >
           Delete

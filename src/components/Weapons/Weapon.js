@@ -2,10 +2,8 @@ import React, { useContext } from "react";
 import AppContext from "../../context/AppContext";
 import EditWeapon from "./EditWeapon";
 import Stat from "../Stat";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Paper from "@material-ui/core/Paper";
+import { Button, Dialog } from "@material-ui/core";
 
 const Weapon = (props) => {
   const context = useContext(AppContext);
@@ -37,63 +35,76 @@ const Weapon = (props) => {
     );
   };
 
+  const handleOpen = () => {
+    handleChange(`${identifier}.edit`, true);
+  };
+
+  const handleClose = () => {
+    handleChange(`${identifier}.edit`, false);
+  };
+
   return (
-    <Accordion style={{ marginBottom: "1rem" }}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+    <>
+      <Paper
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 32px",
+          padding: "1rem",
+          marginBottom: "1rem",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <strong>{weapon.name}</strong>
           <em style={{ fontSize: "12px" }}>
             Critical Range: {weapon.criticalRange}
           </em>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr 1fr",
-              marginTop: "1rem",
-            }}
-          >
-            <Stat
-              handleClick={(event) => {
-                event.stopPropagation();
-              }}
-              label="Attack Bonus"
-              value={attackBonus()}
-            />
-            <Stat
-              handleClick={(event) => {
-                event.stopPropagation();
-              }}
-              label="Damage Die"
-              value={weapon.damageDie}
-            />
-            <Stat
-              handleClick={(event) => {
-                event.stopPropagation();
-              }}
-              label="Damage Bonus"
-              value={damageBonus()}
-            />
-            {weapon.extraDamage.name && (
-              <Stat
-                handleClick={(event) => {
-                  event.stopPropagation();
-                }}
-                label={weapon.extraDamage.name}
-                value={weapon.extraDamage.value}
-              />
-            )}
-          </div>
         </div>
-      </AccordionSummary>
-      <AccordionDetails>
+        <Stat
+          handleClick={(event) => {
+            event.stopPropagation();
+          }}
+          label="Attack Bonus"
+          value={attackBonus()}
+        />
+        <Stat
+          handleClick={(event) => {
+            event.stopPropagation();
+          }}
+          label="Damage Die"
+          value={weapon.damageDie}
+        />
+        <Stat
+          handleClick={(event) => {
+            event.stopPropagation();
+          }}
+          label="Damage Bonus"
+          value={damageBonus()}
+        />
+        {weapon.extraDamage.name && (
+          <Stat
+            handleClick={(event) => {
+              event.stopPropagation();
+            }}
+            label={weapon.extraDamage.name}
+            value={weapon.extraDamage.value}
+          />
+        )}
+        <Button
+          style={{ alignSelf: "center", justifySelf: "flex-end" }}
+          onClick={handleOpen}
+        >
+          Edit
+        </Button>
+      </Paper>
+      <Dialog onClose={handleClose} open={weapon.edit} maxWidth="lg">
         <EditWeapon
           index={index}
           handleChange={handleChange}
           identifier={identifier}
           weapon={weapon}
         />
-      </AccordionDetails>
-    </Accordion>
+      </Dialog>
+    </>
   );
 };
 
