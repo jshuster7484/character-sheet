@@ -15,6 +15,7 @@ export default function Inventory({ handleChange }) {
     edit: false,
     name: "New Item",
     type: "",
+    quantity: null,
     notes: "",
   };
 

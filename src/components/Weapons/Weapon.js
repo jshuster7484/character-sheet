@@ -59,32 +59,11 @@ const Weapon = ({ index, handleChange, weapon }) => {
                 Critical Range: {weapon.criticalRange}
               </em>
             </div>
-            <Stat
-              handleClick={(event) => {
-                event.stopPropagation();
-              }}
-              label="Attack Bonus"
-              value={attackBonus()}
-            />
-            <Stat
-              handleClick={(event) => {
-                event.stopPropagation();
-              }}
-              label="Damage Die"
-              value={weapon.damageDie}
-            />
-            <Stat
-              handleClick={(event) => {
-                event.stopPropagation();
-              }}
-              label="Damage Bonus"
-              value={damageBonus()}
-            />
+            <Stat label="Attack Bonus" value={attackBonus()} />
+            <Stat label="Damage Die" value={weapon.damageDie} />
+            <Stat label="Damage Bonus" value={damageBonus()} />
             {weapon.extraDamage.name && (
               <Stat
-                handleClick={(event) => {
-                  event.stopPropagation();
-                }}
                 label={weapon.extraDamage.name}
                 value={weapon.extraDamage.value}
               />
@@ -92,7 +71,7 @@ const Weapon = ({ index, handleChange, weapon }) => {
           </CardContent>
         </CardActionArea>
       </Card>
-      <Dialog onClose={handleClose} open={weapon.edit} maxWidth="lg">
+      <Dialog fullWidth onClose={handleClose} open={weapon.edit} maxWidth="lg">
         <EditWeapon
           index={index}
           handleChange={handleChange}

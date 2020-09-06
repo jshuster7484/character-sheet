@@ -1,9 +1,7 @@
 import React, { useContext, useState } from "react";
 import AppContext from "../../context/AppContext";
-import Stat from "../Stat";
 import {
   Button,
-  ButtonGroup,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -11,10 +9,8 @@ import {
   CardActionArea,
   CardActions,
   CardContent,
-  Paper,
   DialogActions,
   TextField,
-  Field,
 } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 

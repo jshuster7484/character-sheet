@@ -1,12 +1,8 @@
-import React, { useContext, useState } from "react";
-import AppContext from "../../context/AppContext";
+import React from "react";
 import { Card, CardActionArea, CardContent, Dialog } from "@material-ui/core";
 import EditItem from "./EditItem";
 
 export default function Item({ handleChange, item, index }) {
-  const context = useContext(AppContext);
-  const { dispatch } = context;
-
   const identifier = `items[${index}]`;
 
   const handleOpen = () => {
@@ -26,7 +22,7 @@ export default function Item({ handleChange, item, index }) {
           </CardContent>
         </CardActionArea>
       </Card>
-      <Dialog onClose={handleClose} open={item.edit}>
+      <Dialog fullWidth onClose={handleClose} open={item.edit} maxWidth="lg">
         <EditItem
           identifier={identifier}
           item={item}
