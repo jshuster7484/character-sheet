@@ -51,10 +51,13 @@ const Weapons = ({ handleChange }) => {
         />
       ))}
       <div>
-        <Button variant="contained" style={{ marginRight: "1rem" }}>
-          Add Melee
+        <Button
+          onClick={addWeapon}
+          variant="contained"
+          style={{ marginTop: "1rem" }}
+        >
+          Add Weapon
         </Button>
-        <Button variant="contained">Add Ranged</Button>
       </div>
     </section>
   );

@@ -40,7 +40,7 @@ const EditWeapon = ({ identifier, index, handleChange, weapon }) => {
     value: 0,
   };
 
-  const addItem = (path) => {
+  const addBonus = (path) => {
     dispatch({
       type: "add_item",
       payload: {
@@ -112,7 +112,7 @@ const EditWeapon = ({ identifier, index, handleChange, weapon }) => {
             />
           ))}
           <Button
-            onClick={() => addItem(`${identifier}.attackBonus`)}
+            onClick={() => addBonus(`${identifier}.attackBonus`)}
             style={{ marginTop: "1rem" }}
             variant="contained"
           >
@@ -176,7 +176,7 @@ const EditWeapon = ({ identifier, index, handleChange, weapon }) => {
             />
           ))}
           <Button
-            onClick={() => addItem(`${identifier}.damageBonus`)}
+            onClick={() => addBonus(`${identifier}.damageBonus`)}
             style={{ marginTop: "1rem" }}
             variant="contained"
           >
