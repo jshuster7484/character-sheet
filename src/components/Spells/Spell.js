@@ -14,16 +14,20 @@ import {
 } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
-const Spell = (props) => {
+const Spell = ({ index, spell, handleChange }) => {
   const context = useContext(AppContext);
   const { state, dispatch } = context;
   const { characters, activeCharacterIndex } = state;
-  const { abilities, baseAttackBonus } = characters[activeCharacterIndex];
-  const { index, handleChange, spell } = props;
+  const { slots } = characters[activeCharacterIndex];
+  let spent;
+  if (spell.slalevel > 0) {
+    spent = slots[`level${spell.slalevel}`].spent;
+  }
 
   const [open, setOpen] = useState(false);
 
   const identifier = `spells.level${spell.slalevel}[${index}]`;
+  const spellSlotIdentifier = `slots.level${spell.slalevel}.spent`;
 
   const handleOpen = () => {
     setOpen(true);
@@ -31,6 +35,10 @@ const Spell = (props) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCast = () => {
+    handleChange(spellSlotIdentifier, spent + 1);
   };
 
   return (
@@ -53,7 +61,9 @@ const Spell = (props) => {
         </CardActionArea>
         {spell.slalevel !== 0 && (
           <CardActions>
-            <Button size="small">Cast</Button>
+            <Button onClick={handleCast} size="small">
+              Cast
+            </Button>
           </CardActions>
         )}
       </Card>

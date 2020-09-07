@@ -9,6 +9,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import Inventory from "./Inventory/Inventory";
+import RestButton from "./RestButton";
 
 const CharacterSheet = () => {
   const context = useContext(AppContext);
@@ -64,6 +65,7 @@ const CharacterSheet = () => {
       <Weapons handleChange={handleChange} />
       <Spells handleChange={handleChange} />
       <Inventory handleChange={handleChange} />
+      <RestButton handleChange={handleChange} />
       <Button onClick={handleOpen} style={{ marginLeft: "auto" }}>
         Delete Character
       </Button>

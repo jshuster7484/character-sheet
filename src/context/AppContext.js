@@ -41,6 +41,20 @@ export const newCharacter = {
   },
   baseAttackBonus: 0,
   items: [],
+  slots: {
+    level1: {
+      number: 5,
+      spent: 0,
+    },
+    level2: {
+      number: 0,
+      spent: 0,
+    },
+    level3: {
+      number: 0,
+      spent: 0,
+    },
+  },
   spells: {
     powers: [],
     level0: [],

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import AppContext from "../../context/AppContext";
 import Button from "@material-ui/core/Button";
 import Spell from "./Spell";
+import SpellSlots from "./SpellSlots";
 import Fantasy from "../../assets/icons8-fantasy-50.png";
 import {
   Dialog,
@@ -71,7 +72,10 @@ const Spells = ({ handleChange }) => {
       )}
       {spells.level1.length > 0 && (
         <>
-          <h3 style={{ fontFamily: "Times New Roman" }}>I</h3>
+          <div style={{ alignItems: "center", display: "flex" }}>
+            <h2 style={{ fontFamily: "Times New Roman" }}>I</h2>
+            <SpellSlots level={1} />
+          </div>
           <div style={{ display: "flex" }}>
             {spells.level1.map((spell, index) => (
               <Spell index={index} handleChange={handleChange} spell={spell} />
