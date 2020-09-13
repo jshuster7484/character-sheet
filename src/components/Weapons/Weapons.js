@@ -16,7 +16,7 @@ const Weapons = ({ handleChange }) => {
     criticalRange: "",
     damageBonus: [],
     damageDie: "1d4",
-    edit: false,
+    edit: true,
     extraDamage: { name: "", value: "" },
     attackAbility: "Strength",
     damageAbility: "Strength",

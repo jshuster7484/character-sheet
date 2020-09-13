@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import AppContext from "../../context/AppContext";
 import Button from "@material-ui/core/Button";
 import Spell from "./Spell";
-import SpellSlots from "./SpellSlots";
 import Fantasy from "../../assets/icons8-fantasy-50.png";
 import {
   Dialog,
@@ -29,7 +28,7 @@ const Spellbook = ({ handleChange }) => {
 
   const customSpell = {
     name: "New Spell",
-    edit: false,
+    edit: true,
     custom: true,
     power: false,
     school: "",
@@ -55,7 +54,7 @@ const Spellbook = ({ handleChange }) => {
       type: "add_item",
       payload: {
         key: `characters[${activeCharacterIndex}].spells[${spell.slalevel}].known`,
-        value: { ...spell, dc: null, toHit: null, ability: null },
+        value: { ...spell, edit: true, dc: null, toHit: null, ability: null },
       },
     });
     dispatch({ type: "save_data" });

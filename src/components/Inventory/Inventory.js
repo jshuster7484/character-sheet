@@ -12,7 +12,7 @@ export default function Inventory({ handleChange }) {
   const { items } = characters[activeCharacterIndex];
 
   const newItem = {
-    edit: false,
+    edit: true,
     name: "New Item",
     type: "",
     quantity: null,
@@ -56,14 +56,6 @@ export default function Inventory({ handleChange }) {
       >
         Add Item
       </Button>
-      {/* Open a Dialog to edit the new item here */}
-      {/* <Dialog onClose={handleClose} open={open}>
-        <EditItem
-          item={newItem}
-          handleChange={handleChange}
-          index={items.length + 1}
-        />
-      </Dialog> */}
     </section>
   );
 }

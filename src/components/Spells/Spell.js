@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import AppContext from "../../context/AppContext";
 import {
   Button,
-  Dialog,
   Card,
   CardActionArea,
   CardActions,
@@ -10,27 +9,25 @@ import {
 } from "@material-ui/core";
 import EditSpell from "./EditSpell";
 import EditCustomSpell from "./EditCustomSpell";
-import EditDialog from "../shared/EditDialog";
 
 const Spell = ({ index, spell, handleChange }) => {
   const context = useContext(AppContext);
-  const { state, dispatch } = context;
+  const { state } = context;
   const { characters, activeCharacterIndex } = state;
-  const { slots } = characters[activeCharacterIndex];
-  const [open, setOpen] = useState(false);
 
   const identifier = `spells[${spell.slalevel}].known[${index}]`;
 
+  const handleCast = () => {
+    console.log(`${spell.name} cast!`);
+    // handleChange(spellSlotIdentifier, spent + 1);
+  };
+
   const handleOpen = () => {
-    setOpen(true);
+    handleChange(`${identifier}.edit`, true);
   };
 
   const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleCast = () => {
-    // handleChange(spellSlotIdentifier, spent + 1);
+    handleChange(`${identifier}.edit`, false);
   };
 
   return (
@@ -61,7 +58,7 @@ const Spell = ({ index, spell, handleChange }) => {
       </Card>
       {spell.custom ? (
         <EditCustomSpell
-          open={open}
+          open={spell.edit}
           onClose={handleClose}
           handleChange={handleChange}
           identifier={identifier}
@@ -70,7 +67,7 @@ const Spell = ({ index, spell, handleChange }) => {
         />
       ) : (
         <EditSpell
-          open={open}
+          open={spell.edit}
           onClose={handleClose}
           handleChange={handleChange}
           identifier={identifier}
