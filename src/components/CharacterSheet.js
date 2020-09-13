@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import AppContext from "../context/AppContext";
 import Abilities from "./Abilities";
 import Character from "./Character";
-import Spells from "./Spells/Spells";
+import Spellbook from "./Spells/Spellbook";
 import Weapons from "./Weapons/Weapons";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -63,7 +63,7 @@ const CharacterSheet = () => {
       <Character handleChange={handleChange} />
       <Abilities />
       <Weapons handleChange={handleChange} />
-      <Spells handleChange={handleChange} />
+      <Spellbook handleChange={handleChange} />
       <Inventory handleChange={handleChange} />
       <RestButton handleChange={handleChange} />
       <Button onClick={handleOpen} style={{ marginLeft: "auto" }}>

@@ -71,14 +71,14 @@ const Weapon = ({ index, handleChange, weapon }) => {
           </CardContent>
         </CardActionArea>
       </Card>
-      <Dialog fullWidth onClose={handleClose} open={weapon.edit} maxWidth="lg">
-        <EditWeapon
-          index={index}
-          handleChange={handleChange}
-          identifier={identifier}
-          weapon={weapon}
-        />
-      </Dialog>
+      <EditWeapon
+        onClose={handleClose}
+        open={weapon.edit}
+        index={index}
+        handleChange={handleChange}
+        identifier={identifier}
+        weapon={weapon}
+      />
     </>
   );
 };

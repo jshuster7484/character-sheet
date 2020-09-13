@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
 import AppContext from "../../context/AppContext";
 import Bonus from "./Bonus";
-import Button from "@material-ui/core/Button";
-import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
-import { DialogContent, DialogTitle, DialogActions } from "@material-ui/core";
+import { Button, MenuItem, TextField } from "@material-ui/core";
+import EditDialog from "../shared/EditDialog";
 
 const abilityNames = [
   "Strength",
@@ -31,7 +29,14 @@ const damageDice = [
   "4d6",
 ];
 
-const EditWeapon = ({ identifier, index, handleChange, weapon }) => {
+const EditWeapon = ({
+  open,
+  onClose,
+  identifier,
+  index,
+  handleChange,
+  weapon,
+}) => {
   const context = useContext(AppContext);
   const { dispatch, state } = context;
   const { activeCharacterIndex } = state;
@@ -64,142 +69,134 @@ const EditWeapon = ({ identifier, index, handleChange, weapon }) => {
   };
 
   return (
-    <>
-      <DialogTitle>{weapon.name}</DialogTitle>
-      <DialogContent>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <TextField
-            label="Weapon Name"
-            onChange={(e) => handleChange(`${identifier}.name`, e.target.value)}
-            value={weapon.name}
-          />
-          <TextField
-            label="Critical Range"
-            placeholder="x2"
-            onChange={(e) =>
-              handleChange(`${identifier}.criticalRange`, e.target.value)
-            }
-            value={weapon.criticalRange}
-          />
-        </div>
+    <EditDialog
+      open={open}
+      onClose={onClose}
+      title={weapon.name}
+      handleDelete={deleteWeapon}
+    >
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <TextField
+          label="Weapon Name"
+          onChange={(e) => handleChange(`${identifier}.name`, e.target.value)}
+          value={weapon.name}
+        />
+        <TextField
+          label="Critical Range"
+          placeholder="x2"
+          onChange={(e) =>
+            handleChange(`${identifier}.criticalRange`, e.target.value)
+          }
+          value={weapon.criticalRange}
+        />
+      </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gridGap: "1rem",
-          }}
-        >
-          <div style={{ margin: "1rem" }}>
-            <TextField
-              fullWidth
-              label="Attack Ability"
-              select
-              onChange={(e) =>
-                handleChange(`${identifier}.attackAbility`, e.target.value)
-              }
-              value={weapon.attackAbility}
-            >
-              {abilityNames.map((ability) => (
-                <MenuItem key={ability} value={ability}>
-                  {ability}
-                </MenuItem>
-              ))}
-            </TextField>
-            <h5>Attack Bonuses</h5>
-            {weapon.attackBonus.map((bonus, attackBonusIndex) => (
-              <Bonus
-                bonus={bonus}
-                handleChange={handleChange}
-                identifier={`${identifier}.attackBonus`}
-                index={attackBonusIndex}
-              />
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gridGap: "1rem",
+        }}
+      >
+        <div style={{ margin: "1rem" }}>
+          <TextField
+            fullWidth
+            label="Attack Ability"
+            select
+            onChange={(e) =>
+              handleChange(`${identifier}.attackAbility`, e.target.value)
+            }
+            value={weapon.attackAbility}
+          >
+            {abilityNames.map((ability) => (
+              <MenuItem key={ability} value={ability}>
+                {ability}
+              </MenuItem>
             ))}
-            <Button
-              onClick={() => addBonus(`${identifier}.attackBonus`)}
-              style={{ marginTop: "1rem" }}
-              variant="contained"
-            >
-              Add Bonus
-            </Button>
-          </div>
-          <div style={{ margin: "1rem" }}>
-            <TextField
-              fullWidth
-              label="Damage Die"
-              select
-              onChange={(e) =>
-                handleChange(`${identifier}.damageDie`, e.target.value)
-              }
-              value={weapon.damageDie}
-            >
-              {damageDice.map((dice) => (
-                <MenuItem key={dice} value={dice}>
-                  {dice}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              fullWidth
-              label="Damage Ability"
-              select
-              onChange={(e) =>
-                handleChange(`${identifier}.damageAbility`, e.target.value)
-              }
-              value={weapon.damageAbility}
-            >
-              {abilityNames.map((ability) => (
-                <MenuItem key={ability} value={ability}>
-                  {ability}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              fullWidth
-              label="Extra Damage Name"
-              onChange={(e) =>
-                handleChange(`${identifier}.extraDamage.name`, e.target.value)
-              }
-              value={weapon.extraDamage.name}
+          </TextField>
+          <h5>Attack Bonuses</h5>
+          {weapon.attackBonus.map((bonus, attackBonusIndex) => (
+            <Bonus
+              bonus={bonus}
+              handleChange={handleChange}
+              identifier={`${identifier}.attackBonus`}
+              index={attackBonusIndex}
             />
-            <TextField
-              fullWidth
-              label="Extra Damage Value"
-              onChange={(e) =>
-                handleChange(`${identifier}.extraDamage.value`, e.target.value)
-              }
-              value={weapon.extraDamage.value}
-            />
-            <h5>Damage Bonuses</h5>
-            {weapon.damageBonus.map((bonus, damageBonusIndex) => (
-              <Bonus
-                bonus={bonus}
-                handleChange={handleChange}
-                identifier={`${identifier}.damageBonus`}
-                index={damageBonusIndex}
-              />
-            ))}
-            <Button
-              onClick={() => addBonus(`${identifier}.damageBonus`)}
-              style={{ marginTop: "1rem" }}
-              variant="contained"
-            >
-              Add Bonus
-            </Button>
-          </div>
+          ))}
+          <Button
+            onClick={() => addBonus(`${identifier}.attackBonus`)}
+            style={{ marginTop: "1rem" }}
+            variant="contained"
+          >
+            Add Bonus
+          </Button>
         </div>
-      </DialogContent>
-      <DialogActions>
-        <Button
-          color="secondary"
-          onClick={deleteWeapon}
-          style={{ gridColumn: 1, justifySelf: "flex-start" }}
-          variant="contained"
-        >
-          Delete
-        </Button>
-      </DialogActions>
-    </>
+        <div style={{ margin: "1rem" }}>
+          <TextField
+            fullWidth
+            label="Damage Die"
+            select
+            onChange={(e) =>
+              handleChange(`${identifier}.damageDie`, e.target.value)
+            }
+            value={weapon.damageDie}
+          >
+            {damageDice.map((dice) => (
+              <MenuItem key={dice} value={dice}>
+                {dice}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            fullWidth
+            label="Damage Ability"
+            select
+            onChange={(e) =>
+              handleChange(`${identifier}.damageAbility`, e.target.value)
+            }
+            value={weapon.damageAbility}
+          >
+            {abilityNames.map((ability) => (
+              <MenuItem key={ability} value={ability}>
+                {ability}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            fullWidth
+            label="Extra Damage Name"
+            onChange={(e) =>
+              handleChange(`${identifier}.extraDamage.name`, e.target.value)
+            }
+            value={weapon.extraDamage.name}
+          />
+          <TextField
+            fullWidth
+            label="Extra Damage Value"
+            onChange={(e) =>
+              handleChange(`${identifier}.extraDamage.value`, e.target.value)
+            }
+            value={weapon.extraDamage.value}
+          />
+          <h5>Damage Bonuses</h5>
+          {weapon.damageBonus.map((bonus, damageBonusIndex) => (
+            <Bonus
+              bonus={bonus}
+              handleChange={handleChange}
+              identifier={`${identifier}.damageBonus`}
+              index={damageBonusIndex}
+            />
+          ))}
+          <Button
+            onClick={() => addBonus(`${identifier}.damageBonus`)}
+            style={{ marginTop: "1rem" }}
+            variant="contained"
+          >
+            Add Bonus
+          </Button>
+        </div>
+      </div>
+    </EditDialog>
   );
 };
 

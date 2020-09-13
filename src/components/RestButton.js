@@ -4,7 +4,7 @@ import CampingTent from "../assets/icons8-camping-tent-50.png";
 
 const RestButton = ({ handleChange }) => {
   const handleRest = () => {
-    handleChange(`slots.level1.spent`, 0);
+    handleChange(`spells[1].slots`, 0);
   };
   return (
     <Button

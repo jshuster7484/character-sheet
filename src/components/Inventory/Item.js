@@ -22,14 +22,14 @@ export default function Item({ handleChange, item, index }) {
           </CardContent>
         </CardActionArea>
       </Card>
-      <Dialog fullWidth onClose={handleClose} open={item.edit} maxWidth="lg">
-        <EditItem
-          identifier={identifier}
-          item={item}
-          index={index}
-          handleChange={handleChange}
-        />
-      </Dialog>
+      <EditItem
+        onClose={handleClose}
+        open={item.edit}
+        identifier={identifier}
+        item={item}
+        index={index}
+        handleChange={handleChange}
+      />
     </div>
   );
 }

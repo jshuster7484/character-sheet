@@ -1,17 +1,11 @@
 import React, { useContext } from "react";
 import AppContext from "../../context/AppContext";
-import {
-  Button,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  MenuItem,
-  TextField,
-} from "@material-ui/core";
+import EditDialog from "../shared/EditDialog";
+import { MenuItem, TextField } from "@material-ui/core";
 
 const itemTypes = ["Accessory", "Armor", "Consumable", "Tool", "Weapon"];
 
-const EditItem = ({ identifier, index, handleChange, item }) => {
+const EditItem = ({ open, onClose, identifier, index, handleChange, item }) => {
   const context = useContext(AppContext);
   const { dispatch, state } = context;
   const { activeCharacterIndex } = state;
@@ -29,9 +23,13 @@ const EditItem = ({ identifier, index, handleChange, item }) => {
   };
 
   return (
-    <>
-      <DialogTitle>{item.name}</DialogTitle>
-      <DialogContent
+    <EditDialog
+      open={open}
+      onClose={onClose}
+      title={item.name}
+      handleDelete={deleteItem}
+    >
+      <div
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -72,6 +70,7 @@ const EditItem = ({ identifier, index, handleChange, item }) => {
             value={item.quantity}
           />
         </div>
+
         <TextField
           fullWidth
           label="Notes"
@@ -82,11 +81,8 @@ const EditItem = ({ identifier, index, handleChange, item }) => {
           value={item.notes}
           variant="outlined"
         />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={deleteItem}>Delete</Button>
-      </DialogActions>
-    </>
+      </div>
+    </EditDialog>
   );
 };
 

@@ -41,32 +41,48 @@ export const newCharacter = {
   },
   baseAttackBonus: 0,
   items: [],
-  slots: {
-    level1: {
-      number: 5,
-      spent: 0,
-    },
-    level2: {
-      number: 0,
-      spent: 0,
-    },
-    level3: {
-      number: 0,
-      spent: 0,
-    },
-  },
+  powers: [],
   spells: {
-    powers: [],
-    level0: [],
-    level1: [],
-    level2: [],
-    level3: [],
-    level4: [],
-    level5: [],
-    level6: [],
-    level7: [],
-    level8: [],
-    level9: [],
+    0: {
+      known: [],
+      slots: 0,
+    },
+    1: {
+      known: [],
+      slots: 0,
+    },
+    2: {
+      known: [],
+      slots: 0,
+    },
+    3: {
+      known: [],
+      slots: 0,
+    },
+    4: {
+      known: [],
+      slots: 0,
+    },
+    5: {
+      known: [],
+      slots: 0,
+    },
+    6: {
+      known: [],
+      slots: 0,
+    },
+    7: {
+      known: [],
+      slots: 0,
+    },
+    8: {
+      known: [],
+      slots: 0,
+    },
+    9: {
+      known: [],
+      slots: 0,
+    },
   },
   weapons: [],
 };

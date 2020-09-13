@@ -30,9 +30,9 @@ const SpellSlots = ({ level }) => {
   const context = useContext(AppContext);
   const { state } = context;
   const { activeCharacterIndex, characters } = state;
-  const { number, spent } = characters[activeCharacterIndex].slots[
-    `level${level}`
-  ];
+
+  const number = 0;
+  const spent = 0;
 
   const filledSlots = Math.max(number - spent, 0);
   const spentSlots = Math.min(spent, number);
